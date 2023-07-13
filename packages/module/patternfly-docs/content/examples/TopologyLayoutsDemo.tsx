@@ -1,13 +1,15 @@
 import * as React from 'react';
 import {
-  Dropdown,
-  DropdownItem,
-  DropdownPosition,
-  DropdownToggle,
-  Split,
-  SplitItem,
-  ToolbarItem
+	Split,
+	SplitItem,
+	ToolbarItem
 } from '@patternfly/react-core';
+import {
+	Dropdown,
+	DropdownItem,
+	DropdownPosition,
+	DropdownToggle
+} from '@patternfly/react-core/deprecated';
 // eslint-disable-next-line patternfly-react/import-tokens-icons
 import { RegionsIcon as Icon1, FolderOpenIcon as Icon2 } from '@patternfly/react-icons';
 import {

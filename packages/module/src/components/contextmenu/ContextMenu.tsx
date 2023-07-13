@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { DropdownMenu, DropdownContext } from '@patternfly/react-core';
+import {
+	DropdownMenu,
+	DropdownContext
+} from '@patternfly/react-core/deprecated';
 import { css } from '@patternfly/react-styles';
 import topologyStyles from '../../css/topology-components';
 import styles from '@patternfly/react-styles/css/components/Dropdown/dropdown';

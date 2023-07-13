@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Select, SelectOption, SelectVariant, ToolbarItem } from '@patternfly/react-core';
+import {
+	ToolbarItem
+} from '@patternfly/react-core';
+import {
+	Select,
+	SelectOption,
+	SelectVariant
+} from '@patternfly/react-core/deprecated';
 // eslint-disable-next-line patternfly-react/import-tokens-icons
 import { RegionsIcon as Icon1, FolderOpenIcon as Icon2 } from '@patternfly/react-icons';
 import {

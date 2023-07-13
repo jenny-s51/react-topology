@@ -41,7 +41,7 @@ export interface TopologyViewProps extends React.HTMLProps<HTMLDivElement> {
   /** The maximum size of the side bar, in either pixels or percentage. */
   maxSideBarSize?: string;
   /** Callback for side bar resize end. */
-  onSideBarResize?: (width: number, id: string) => void;
+  onSideBarResize?: (event: MouseEvent | TouchEvent | React.KeyboardEvent, width: number, id: string) => void;
 }
 
 export const TopologyView: React.FunctionComponent<TopologyViewProps> = ({
