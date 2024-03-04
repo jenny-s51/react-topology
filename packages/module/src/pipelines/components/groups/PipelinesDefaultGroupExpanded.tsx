@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { polygonHull } from 'd3-polygon';
-import * as _ from 'lodash';
 import { css } from '@patternfly/react-styles';
 import styles from '@patternfly/react-topology/src/css/topology-components';
 import CollapseIcon from '@patternfly/react-icons/dist/esm/icons/compress-alt-icon';
@@ -28,11 +27,11 @@ import {
   NodeStyle,
   PointTuple,
   isGraph,
+  LabelPosition
 } from '@patternfly/react-topology';
-import { PipelinesNodeLabel } from "../../../components";
-// import CustomNodeLabel from "../customNodes/CustomNodeLabel";
+import { PipelinesNodeLabel } from '../../../components';
 
-type DefaultGroupExpandedProps = {
+type PipelinesDefaultGroupExpandedProps = {
   className?: string;
   element: Node;
   droppable?: boolean;
@@ -52,6 +51,7 @@ type DefaultGroupExpandedProps = {
   badgeLocation?: BadgeLocation;
   labelIconClass?: string; // Icon to show in label
   labelIcon?: string;
+  labelPosition?: LabelPosition;
   labelIconPadding?: number;
   hulledOutline?: boolean;
 } & CollapsibleGroupProps &
@@ -62,14 +62,44 @@ type DefaultGroupExpandedProps = {
 
 type PointWithSize = [number, number, number];
 
-// Return the point whose Y is the largest value.
+// Return the point whose Y is the largest or smallest based on the labelPosition value.
 // If multiple points are found, compute the center X between them
 // export for testing only
-export function computeLabelLocation(points: PointWithSize[]): PointWithSize {
+export function computeLabelLocation(points: PointWithSize[], labelPosition?: LabelPosition): PointWithSize {
   let lowPoints: PointWithSize[];
+  let highPoints: PointWithSize[];
   const threshold = 5;
 
-  _.forEach(points, (p) => {
+  if (labelPosition === LabelPosition.top) {
+    points.forEach((p) => {
+      const delta = !highPoints ? -Infinity : Math.round(p[1]) - Math.round(highPoints[0][1]);
+      // If the difference is greater than the threshold, update the highest point
+      if (delta < -threshold) {
+        highPoints = [p];
+      } else if (Math.abs(delta) <= threshold) {
+        if (!highPoints) {
+          highPoints = [];
+        }
+        highPoints.push(p);
+      }
+    });
+
+    // find min and max by x and y coordinates
+    const minX = highPoints.reduce((min, p) => Math.min(min, p[0]), Infinity);
+    const maxX = highPoints.reduce((max, p) => Math.max(max, p[0]), -Infinity);
+    const minY = highPoints.reduce((min, p) => Math.min(min, p[1]), Infinity);
+    // find max by size value
+    const maxSize = highPoints.reduce((max, p) => Math.max(max, p[2]), -Infinity);
+
+    return [
+      (minX + maxX) / 2,
+      minY,
+      // use the max size value
+      maxSize
+    ];
+  }
+
+  points.forEach((p) => {
     const delta = !lowPoints ? Infinity : Math.round(p[1]) - Math.round(lowPoints[0][1]);
     if (delta > threshold) {
       lowPoints = [p];
@@ -77,15 +107,20 @@ export function computeLabelLocation(points: PointWithSize[]): PointWithSize {
       lowPoints.push(p);
     }
   });
-  return [
-    (_.minBy(lowPoints, (p) => p[0])[0] + _.maxBy(lowPoints, (p) => p[0])[0]) / 2,
-    lowPoints[0][1],
-    // use the max size value
-    _.maxBy(lowPoints, (p) => p[2])[2],
-  ];
+
+  const minX = lowPoints.reduce((acc, point) => {
+    return Math.min(acc, point[0]);
+  }, Number.POSITIVE_INFINITY);
+  const maxX = lowPoints.reduce((acc, point) => {
+    return Math.max(acc, point[0]);
+  }, Number.NEGATIVE_INFINITY);
+  const maxSize = lowPoints.reduce((acc, point) => {
+    return Math.max(acc, point[2]);
+  }, Number.NEGATIVE_INFINITY);
+  return [(minX + maxX) / 2, lowPoints[0][1], maxSize];
 }
 
-const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpandedProps> = ({
+const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGroupExpandedProps> = ({
   className,
   element,
   collapsible,
@@ -112,9 +147,10 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
   badgeLocation,
   labelIconClass,
   labelIcon,
+  labelPosition,
   labelIconPadding,
   onCollapseChange,
-  hulledOutline = true,
+  hulledOutline = true
 }) => {
   const [hovered, hoverRef] = useHover();
   const [labelHover, labelHoverRef] = useHover();
@@ -149,7 +185,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
       return null;
     }
     const points: (PointWithSize | PointTuple)[] = [];
-    _.forEach(children, (c) => {
+    children.forEach((c) => {
       if (c.getNodeShape() === NodeShape.circle) {
         const bounds = c.getBounds();
         const { width, height } = bounds;
@@ -177,14 +213,13 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
       pathRef.current = hullPath(hullPoints as PointTuple[], hullPadding);
 
       // Compute the location of the group label.
-      labelLocation.current = computeLabelLocation(hullPoints as PointWithSize[]);
+      labelLocation.current = computeLabelLocation(hullPoints as PointWithSize[], labelPosition);
     } else {
       boxRef.current = element.getBounds();
-      labelLocation.current = [
-        boxRef.current.x + boxRef.current.width / 2,
-        boxRef.current.y + boxRef.current.height,
-        0,
-      ];
+      labelLocation.current =
+        labelPosition === LabelPosition.top
+          ? [boxRef.current.x + boxRef.current.width / 2, boxRef.current.y, 0]
+          : [boxRef.current.x + boxRef.current.width / 2, boxRef.current.y + boxRef.current.height, 0];
     }
   }
 
@@ -194,7 +229,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
     altGroup && 'pf-m-alt-group',
     canDrop && 'pf-m-highlight',
     dragging && 'pf-m-dragging',
-    selected && 'pf-m-selected',
+    selected && 'pf-m-selected'
   );
   const innerGroupClassName = css(
     styles.topologyGroup,
@@ -204,23 +239,21 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
     dragging && 'pf-m-dragging',
     selected && 'pf-m-selected',
     (isHover || labelHover) && 'pf-m-hover',
-    canDrop && dropTarget && 'pf-m-drop-target',
+    canDrop && dropTarget && 'pf-m-drop-target'
   );
 
+  const outlinePadding = hulledOutline ? hullPadding(labelLocation.current) : 0;
+  const labelGap = 24;
+  const startX = labelLocation.current[0];
+  const startY =
+    labelPosition === LabelPosition.top
+      ? labelLocation.current[1] - outlinePadding - labelGap * 2
+      : labelLocation.current[1] + outlinePadding + labelGap;
+
   return (
-    <g
-      ref={labelHoverRef}
-      onContextMenu={onContextMenu}
-      onClick={onSelect}
-      className={groupClassName}
-    >
+    <g ref={labelHoverRef} onContextMenu={onContextMenu} onClick={onSelect} className={groupClassName}>
       <Layer id={GROUPS_LAYER}>
-        <g
-          ref={refs}
-          onContextMenu={onContextMenu}
-          onClick={onSelect}
-          className={innerGroupClassName}
-        >
+        <g ref={refs} onContextMenu={onContextMenu} onClick={onSelect} className={innerGroupClassName}>
           {hulledOutline ? (
             <path ref={outlineRef} className={styles.topologyGroupBackground} d={pathRef.current} />
           ) : (
@@ -238,12 +271,9 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
       {showLabel && (label || element.getLabel()) && (
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <PipelinesNodeLabel
-            x={labelLocation.current[0]}
-            y={
-              labelLocation.current[1] +
-              (hulledOutline ? hullPadding(labelLocation.current) : 0) +
-              24
-            }
+            className="pf-topology-pipelines__group__label"
+            x={startX}
+            y={startY}
             paddingX={8}
             paddingY={5}
             dragRef={dragNodeRef ? dragLabelRef : undefined}
@@ -263,7 +293,6 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpande
             contextMenuOpen={contextMenuOpen}
             hover={isHover || labelHover}
             actionIcon={collapsible ? <CollapseIcon /> : undefined}
-            isExpanded
             onActionIconClick={() => onCollapseChange(element, true)}
           >
             {label || element.getLabel()}

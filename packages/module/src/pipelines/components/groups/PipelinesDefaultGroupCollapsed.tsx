@@ -99,47 +99,18 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
                 <Stadium
                   className={css(styles.topologyNodeBackground, 'pf-m-disabled')}
                   element={element}
-                  width={collapsedWidth}
-                  height={collapsedHeight}
+                  width={1}
+                  height={1}
                 />
               </g>
-              <g transform={`translate(${collapsedShadowOffset}, 0)`}>
-                <Stadium
-                  className={css(styles.topologyNodeBackground, 'pf-m-disabled')}
-                  element={element}
-                  width={collapsedWidth}
-                  height={collapsedHeight}
-                />
-              </g>
-              <Stadium
-                className={css(styles.topologyNodeBackground)}
-                key={isHover || dragging || dropTarget ? 'shape-background-hover' : 'shape-background'} // update key to force remount and filter update
-                element={element}
-                width={collapsedWidth}
-                height={collapsedHeight}
-                dndDropRef={dndDropRef}
-                filter={filter}
-              />
             </>
         </g>
       </Layer>
-      {shapeSize && childCount && (
-        <LabelBadge
-          className={styles.topologyGroupCollapsedBadge}
-          ref={badgeRef}
-          x={shapeSize.width - 8}
-          y={(shapeSize.width - (badgeSize?.height ?? 0)) / 2}
-          badge={`${childCount}`}
-          badgeColor={badgeColor}
-          badgeTextColor={badgeTextColor}
-          badgeBorderColor={badgeBorderColor}
-        />
-      )}
       {showLabel && (
         <PipelinesNodeLabel
         //   className={styles.topologyGroupLabel}
           x={collapsedWidth / 2}
-          y={labelPosition === LabelPosition.top ? collapsedHeight / 2 - collapsedHeight : collapsedHeight + 6}
+          y={labelPosition === LabelPosition.top ? 0 : collapsedHeight + 6}
           paddingX={8}
           paddingY={5}
           dragRef={dragNodeRef ? dragLabelRef : undefined}

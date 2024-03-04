@@ -1,27 +1,16 @@
 import * as React from 'react';
 import { css } from '@patternfly/react-styles';
-import styles from '@patternfly/react-topology/src/css/topology-components';
-import {
-  LabelIcon,
-  LabelBadge,
-  LabelActionIcon,
-  LabelContextMenu,
-  BadgeLocation,
-  LabelPosition,
-  NodeStatus,
-  NodeShadows,
-  WithContextMenuProps,
-  WithDndDragProps,
-  createSvgIdUrl,
-  useCombineRefs,
-  useHover,
-  useSize,
-} from '@patternfly/react-topology';
-import { Badge } from '@patternfly/react-core';
-// import { truncateMiddle } from "@patternfly/react-topology/src/utils/truncate-middle";
-
-export const NODE_SHADOW_FILTER_ID_HOVER = 'NodeShadowsFilterId--hover';
-export const NODE_SHADOW_FILTER_ID_DANGER = 'NodeShadowsFilterId--danger';
+import styles from '../../../css/topology-components';
+import pipelinesStyles from '../../../css/topology-pipelines';
+import { truncateMiddle } from '../../../utils/truncate-middle';
+import { createSvgIdUrl, useCombineRefs, useHover, useSize } from '../../../utils';
+import { WithContextMenuProps, WithDndDragProps } from '../../../behavior';
+import NodeShadows, { NODE_SHADOW_FILTER_ID_DANGER, NODE_SHADOW_FILTER_ID_HOVER } from '../NodeShadows';
+import LabelBadge from './LabelBadge';
+import LabelContextMenu from './LabelContextMenu';
+import LabelIcon from './LabelIcon';
+import LabelActionIcon from './LabelActionIcon';
+import { BadgeLocation, LabelPosition, NodeStatus } from '../../../types';
 
 type PipelinesNodeLabelProps = {
   children?: string;
@@ -38,7 +27,6 @@ type PipelinesNodeLabelProps = {
   labelIconClass?: string; // Icon to show in label
   labelIcon?: React.ReactNode;
   labelIconPadding?: number;
-  isExpanded?: boolean;
   dragRef?: WithDndDragProps['dndDragRef'];
   hover?: boolean;
   dragging?: boolean;
@@ -75,7 +63,6 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   badgeBorderColor,
   badgeClassName,
   badgeLocation = BadgeLocation.inner,
-  isExpanded = false,
   labelIconClass,
   labelIcon,
   labelIconPadding = 4,
@@ -93,33 +80,13 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   ...other
 }) => {
   const [labelHover, labelHoverRef] = useHover();
-  const [expandIconHovered, setExpandIconHovered] = React.useState(false);
-
-  const refs = useCombineRefs(
-    dragRef as React.Ref<Element>,
-    (typeof truncateLength === 'number' ? labelHoverRef : undefined) as React.Ref<Element>,
-  );
+  const refs = useCombineRefs(dragRef, typeof truncateLength === 'number' ? labelHoverRef : undefined);
 
   const [textSize, textRef] = useSize([children, truncateLength, className, labelHover]);
-  const [secondaryTextSize, secondaryTextRef] = useSize([
-    secondaryLabel,
-    truncateLength,
-    className,
-    labelHover,
-  ]);
+  const [secondaryTextSize, secondaryTextRef] = useSize([secondaryLabel, truncateLength, className, labelHover]);
   const [badgeSize, badgeRef] = useSize([badge]);
   const [actionSize, actionRef] = useSize([actionIcon, paddingX]);
   const [contextSize, contextRef] = useSize([onContextMenu, paddingX]);
-
-  const onMouseEnter = (e) => {
-    console.log('mouse enetered');
-    setExpandIconHovered(true);
-  };
-
-  const onMouseLeave = (e) => {
-    console.log('mouse letft');
-    setExpandIconHovered(false);
-  };
 
   const {
     width,
@@ -132,7 +99,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     actionStartX,
     contextStartX,
     iconSpace,
-    badgeSpace,
+    badgeSpace
   } = React.useMemo(() => {
     if (!textSize) {
       return {
@@ -146,7 +113,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
         actionStartX: 0,
         contextStartX: 0,
         iconSpace: 0,
-        badgeSpace: 0,
+        badgeSpace: 0
       };
     }
     const badgeSpace = badge && badgeSize && badgeLocation === BadgeLocation.inner ? badgeSize.width + paddingX : 0;
@@ -154,7 +121,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     const iconSpace = labelIconClass || labelIcon ? (height + paddingY * 0.5) / 2 : 0;
     const actionSpace = actionIcon && actionSize ? actionSize.width : 0;
     const contextSpace = onContextMenu && contextSize ? contextSize.width : 0;
-    const primaryWidth = iconSpace + badgeSpace + paddingX + textSize.width + actionSpace + contextSpace + paddingX;
+    const primaryWidth = iconSpace + badgeSpace + paddingX + textSize.width + contextSpace + paddingX;
     const secondaryWidth = secondaryLabel && secondaryTextSize ? secondaryTextSize.width + 2 * paddingX : 0;
     const width = Math.max(primaryWidth, secondaryWidth);
 
@@ -184,7 +151,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
         badgeStartX = (width - badgeSize.width) / 2;
         badgeStartY = height + paddingY;
       } else {
-        badgeStartX = iconSpace + paddingX;
+        badgeStartX = iconSpace + textSize.width + paddingX * 2;
         badgeStartY = (height - badgeSize.height) / 2;
       }
     }
@@ -200,7 +167,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
       badgeStartX,
       badgeStartY,
       iconSpace,
-      badgeSpace: badgeSize && badgeLocation === BadgeLocation.inner ? badgeSpace : 0,
+      badgeSpace: badgeSize && badgeLocation === BadgeLocation.inner ? badgeSpace : 0
     };
   }, [
     textSize,
@@ -219,7 +186,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     secondaryTextSize,
     position,
     x,
-    y,
+    y
   ]);
 
   let filterId;
@@ -230,73 +197,62 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   }
 
   return (
-    <>
-      <g className={className} ref={refs} transform={`translate(${startX}, ${startY})`}>
-        <NodeShadows />
-        {textSize && (
-          <>
-            <rect
-              className="pf-topology__node-pipelines__label__background"
-              key={`rect-${filterId}`} // update key to force remount on filter update
-              filter={filterId && createSvgIdUrl(filterId)}
-              x={0}
-              y={-height / 2}
-              width={width}
-              height={height}
-              rx={cornerRadius}
-              ry={cornerRadius}
-            />
-          </>
-        )}
-        {textSize && (labelIconClass || labelIcon) && (
-          <LabelIcon
-            x={iconSpace}
-            y={paddingY * -0.25}
-            width={iconSpace * 2}
-            height={iconSpace * 2}
-            iconClass={labelIconClass}
-            icon={labelIcon}
-            padding={labelIconPadding}
-          />
-        )}
-        <text {...other} ref={textRef} x={iconSpace + paddingX} y={0} dy="0.35em">
-          {truncateLength > 0 && !labelHover
-            ? truncateMiddle(children, { length: truncateLength })
-            : children}
-        </text>
-        {textSize && badge && (
-          <LabelBadge
-            ref={badgeRef}
-            x={iconSpace + textSize.width + paddingX * 2}
-            y={badgeStartY}
-            badge={badge}
-            badgeClassName={badgeClassName}
-            badgeColor={badgeColor}
-            badgeTextColor={badgeTextColor}
-            badgeBorderColor={badgeBorderColor}
-          />
-        )}
-      </g>
-      <g
-        className={isExpanded ? 'action-icon-expanded' : 'action-icon-collapsed'}
-        key={`rect-${filterId}`} // update key to force remount on filter update
-        filter={filterId && createSvgIdUrl(filterId)}
-        onMouseEnter={() => setExpandIconHovered(true)}
-        onMouseLeave={() => setExpandIconHovered(false)}
-      >
-        <LabelActionIcon
-          ref={actionRef}
-          x={actionStartX}
+    <g className={className} ref={refs} transform={`translate(${startX}, ${startY})`}>
+      <NodeShadows />
+      {textSize && (
+        <rect
+          className={css(styles.topologyNodeLabelBackground)}
+          key={`rect-${filterId}`} // update key to force remount on filter update
+          filter={filterId && createSvgIdUrl(filterId)}
+          x={0}
           y={0}
+          width={width}
           height={backgroundHeight}
-          paddingX={paddingX}
-          paddingY={paddingY}
-          icon={actionIcon}
-          className={isExpanded ? 'action-icon-expanded' : 'action-icon-collapsed'}
-          onClick={onActionIconClick}
+          rx={cornerRadius}
+          ry={cornerRadius}
         />
-      </g>
-    </>
+      )}
+      {textSize && badge && (
+        <LabelBadge
+          ref={badgeRef}
+          x={badgeStartX}
+          y={badgeStartY}
+          badge={badge}
+          badgeClassName={badgeClassName}
+          badgeColor={badgeColor}
+          badgeTextColor={badgeTextColor}
+          badgeBorderColor={badgeBorderColor}
+        />
+      )}
+      {textSize && (labelIconClass || labelIcon) && (
+        <LabelIcon
+          x={iconSpace}
+          y={paddingY * -0.25}
+          width={iconSpace * 2}
+          height={iconSpace * 2}
+          iconClass={labelIconClass}
+          icon={labelIcon}
+          padding={labelIconPadding}
+        />
+      )}
+      <text {...other} ref={textRef} x={iconSpace + paddingX} y={height / 2} dy="0.35em">
+        {truncateLength > 0 && !labelHover ? truncateMiddle(children, { length: truncateLength }) : children}
+      </text>
+      {textSize && actionIcon && (
+          <LabelActionIcon
+            ref={actionRef}
+            x={actionStartX}
+            y={0}
+            height={height}
+            paddingX={paddingX}
+            paddingY={paddingY}
+            icon={actionIcon}
+            isIconExternal
+            className={actionIconClassName}
+            onClick={onActionIconClick}
+          />
+      )}
+    </g>
   );
 };
 
