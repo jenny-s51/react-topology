@@ -601,7 +601,7 @@
 }
 
 .pf-topology__group__label > text {
-  fill: var(--pf-topology__group__label__text--Fill);
+  fill: var(--pf-v5-global--Color--light-100);
   font-size: var(--pf-v5-global--FontSize--sm);
   pointer-events: none;
 }
@@ -844,4 +844,3 @@
 .pf-topology-default-create-connector__create__cursor {
   fill: var(--pf-topology__create-connector-color--Fill);
 }
-

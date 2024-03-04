@@ -4,9 +4,10 @@ import {
   DEFAULT_TASK_NODE_TYPE,
   DEFAULT_WHEN_OFFSET,
   DEFAULT_WHEN_SIZE,
+  LabelPosition,
   PipelineNodeModel,
   RunStatus,
-  WhenStatus,
+  WhenStatus
 } from '@patternfly/react-topology';
 
 export const NODE_PADDING_VERTICAL = 45;
@@ -149,7 +150,10 @@ export const useDemoPipelineNodes = (
           type: 'task-group',
           children: parallelTasks.map(t => t.id),
           group: true,
-          label: 'Parallel tasks'
+          label: 'Parallel tasks',
+          data: {
+            badge: 'Label',
+          }
         });
       }
     }
@@ -190,7 +194,8 @@ export const useDemoPipelineNodes = (
               type: 'task-group',
               children: [],
               group: true,
-              label: `Group ${task.data.columnGroup}`
+              label: `Group ${task.data.columnGroup}`, 
+              labelPosition: LabelPosition.top
             };
             acc.push(taskGroup);
           }
@@ -221,8 +226,8 @@ export const useDemoPipelineNodes = (
       taskProgress: '3/4',
       taskType: 'java',
       taskTopic: 'Environment',
-      columnGroup: TASK_STATUSES.length % STATUS_PER_ROW + 1,
-      taskJobType: 'cubes',
+      columnGroup: (TASK_STATUSES.length % STATUS_PER_ROW) + 1,
+      taskJobType: 'cubes'
     };
 
     if (!layout) {
@@ -250,8 +255,8 @@ export const useDemoPipelineNodes = (
       taskProgress: '3/4',
       taskType: 'java',
       taskTopic: 'Environment',
-      columnGroup: TASK_STATUSES.length % STATUS_PER_ROW + 1,
-      taskJobType: 'link',
+      columnGroup: (TASK_STATUSES.length % STATUS_PER_ROW) + 1,
+      taskJobType: 'link'
     };
 
     if (!layout) {
