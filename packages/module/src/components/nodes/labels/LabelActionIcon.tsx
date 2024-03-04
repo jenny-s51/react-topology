@@ -6,6 +6,7 @@ import styles from '../../../css/topology-components';
 interface LabelActionIconProps {
   className?: string;
   icon: React.ReactElement;
+  isIconExternal?: boolean;
   onClick: (e: React.MouseEvent) => void;
   iconOffsetX?: number;
   iconOffsetY?: number;
@@ -17,7 +18,7 @@ interface LabelActionIconProps {
 }
 
 const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
-  ({ icon, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }, actionRef) => {
+  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }, actionRef) => {
     const [iconSize, iconRef] = useSize([icon, paddingX]);
     const iconWidth = iconSize?.width ?? 0;
     const iconHeight = iconSize?.height ?? 0;
@@ -37,7 +38,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
         {iconSize && (
           <rect
             ref={actionRef}
-            className={css(styles.topologyNodeActionIconBackground)}
+            className={isIconExternal ? css(styles.topologyNodeActionIconBackground) : 'pf-topology__node__pipelines-action-icon__background'}
             x={x}
             y={y}
             width={iconWidth + paddingX * 2}

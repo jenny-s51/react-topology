@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  DefaultGroup,
   GraphElement,
   Node,
   observer,
@@ -8,7 +7,8 @@ import {
   ShapeProps,
   WithContextMenuProps,
   WithDragNodeProps,
-  WithSelectionProps
+  WithSelectionProps,
+  PipelinesDefaultGroup,
 } from '@patternfly/react-topology';
 import AlternateIcon from '@patternfly/react-icons/dist/esm/icons/regions-icon';
 import DefaultIcon from '@patternfly/react-icons/dist/esm/icons/builder-image-icon';
@@ -34,10 +34,8 @@ type StyleGroupProps = {
 
 const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
   element,
-  onContextMenu,
-  contextMenuOpen,
   collapsedWidth = 75,
-  collapsedHeight = 75,
+  collapsedHeight = 60,
   ...rest
 }) => {
   const groupElement = element as Node;
@@ -55,11 +53,11 @@ const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
 
   const renderIcon = (): React.ReactNode => {
     const iconSize = Math.min(collapsedWidth, collapsedHeight) - ICON_PADDING * 2;
-    const Component = getTypeIcon(data.dataType);
+const label = element.getLabel();
 
     return (
       <g transform={`translate(${(collapsedWidth - iconSize) / 2}, ${(collapsedHeight - iconSize) / 2})`}>
-        <Component style={{ color: '#393F44' }} width={iconSize} height={iconSize} />
+        {label}
       </g>
     );
   };
@@ -75,9 +73,7 @@ const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
   }, [data]);
 
   return (
-    <DefaultGroup
-      onContextMenu={data.showContextMenu ? onContextMenu : undefined}
-      contextMenuOpen={contextMenuOpen}
+    <PipelinesDefaultGroup
       element={element}
       collapsible
       collapsedWidth={collapsedWidth}
@@ -87,7 +83,7 @@ const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
       {...passedData}
     >
       {groupElement.isCollapsed() ? renderIcon() : null}
-    </DefaultGroup>
+    </PipelinesDefaultGroup>
   );
 };
 
