@@ -112,15 +112,12 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   onSelect,
   hover,
   label,
-  secondaryLabel,
   showLabel = true,
   truncateLength,
   dndDropRef,
   droppable,
   canDrop,
   dropTarget,
-  onContextMenu,
-  contextMenuOpen,
   dragging,
   dragNodeRef,
   badge,
@@ -230,9 +227,9 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
       : labelLocation.current[1] + outlinePadding + labelGap;
 
   return (
-    <g ref={labelHoverRef} onContextMenu={onContextMenu} onClick={onSelect} className={groupClassName}>
+    <g ref={labelHoverRef} onClick={onSelect} className={groupClassName}>
       <Layer id={GROUPS_LAYER}>
-        <g ref={refs} onContextMenu={onContextMenu} onClick={onSelect} className={innerGroupClassName}>
+        <g ref={refs} onClick={onSelect} className={innerGroupClassName}>
           {hulledOutline ? (
             <path ref={outlineRef} className={styles.topologyGroupBackground} d={pathRef.current} />
           ) : (
@@ -244,13 +241,12 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <PipelinesNodeLabel
             className={styles.topologyGroupLabel}
-            x={startX}
+            x={startX - 38}
             y={startY}
             paddingX={8}
             paddingY={5}
             dragRef={dragNodeRef ? dragLabelRef : undefined}
             status={element.getNodeStatus()}
-            secondaryLabel={secondaryLabel}
             truncateLength={truncateLength}
             badge={badge}
             badgeColor={badgeColor}
@@ -261,8 +257,6 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
             labelIconClass={labelIconClass}
             labelIcon={labelIcon}
             labelIconPadding={labelIconPadding}
-            onContextMenu={onContextMenu}
-            contextMenuOpen={contextMenuOpen}
             hover={isHover || labelHover}
             isExpanded
             actionIcon={collapsible ? <CollapseIcon /> : undefined}

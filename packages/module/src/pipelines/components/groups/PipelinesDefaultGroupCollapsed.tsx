@@ -76,8 +76,6 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
   const [shapeSize, shapeRef] = useSize([collapsedWidth, collapsedHeight]);
   const refs = useCombineRefs<SVGPathElement>(hoverRef, dragNodeRef, shapeRef);
   const isHover = hover !== undefined ? hover : hovered;
-  const childCount = element.getAllNodeChildren().length;
-  const [badgeSize, badgeRef] = useSize([childCount]);
 
   const groupClassName = css(
     styles.topologyGroup,
@@ -108,14 +106,13 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
       </Layer>
       {showLabel && (
         <PipelinesNodeLabel
-        //   className={styles.topologyGroupLabel}
+          className={styles.topologyGroupLabel}
           x={collapsedWidth / 2}
           y={labelPosition === LabelPosition.top ? 0 : collapsedHeight + 6}
           paddingX={8}
           paddingY={5}
           dragRef={dragNodeRef ? dragLabelRef : undefined}
           status={element.getNodeStatus()}
-          secondaryLabel={secondaryLabel}
           truncateLength={truncateLength}
           badge={badge}
           badgeColor={badgeColor}
@@ -126,8 +123,6 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
           labelIconClass={labelIconClass}
           labelIcon={labelIcon}
           labelIconPadding={labelIconPadding}
-          onContextMenu={onContextMenu}
-          contextMenuOpen={contextMenuOpen}
           hover={isHover || labelHover}
           actionIcon={collapsible ? <ExpandIcon /> : undefined}
           onActionIconClick={() => onCollapseChange(element, false)}
