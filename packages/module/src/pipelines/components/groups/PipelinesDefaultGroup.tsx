@@ -1,23 +1,16 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-
+import { OnSelect, WithDndDragProps, ConnectDragSource, ConnectDropTarget } from '../../../behavior';
+import { ShapeProps } from '../../../components';
+import { Dimensions } from '../../../geom';
+import { GraphElement, LabelPosition, BadgeLocation, isNode, Node } from '../../../types';
+import PipelinesDefaultGroupCollapsed from './PipelinesDefaultGroupCollapsed';
 import PipelinesDefaultGroupExpanded from './PipelinesDefaultGroupExpanded';
-import { OnSelect } from '@patternfly/react-table';
-import {
-  GraphElement,
-  LabelPosition,
-  BadgeLocation,
-  ShapeProps,
-  WithDndDragProps,
-  ConnectDragSource,
-  ConnectDropTarget,
-  Node,
-} from '@patternfly/react-topology';
-import { isNode } from 'yaml';
-import PipelinesDefaultGroupCollapsed from "./PipelinesDefaultGroupCollapsed";
-import MyRectComponent from "./MyRectComponent";
+import { Badge } from "@patternfly/react-core";
 
 interface PipelinesDefaultGroupProps {
+  /** Additional content added to the node */
+  children?: React.ReactNode;
   /** Additional classes added to the group */
   className?: string;
   /** The graph group node element to represent */
@@ -40,7 +33,7 @@ interface PipelinesDefaultGroupProps {
   secondaryLabel?: string;
   /** Flag to show the label */
   showLabel?: boolean; // Defaults to true
-  /** Position of the label, bottom or left. Defaults to element.getLabelPosition() or bottom */
+  /** Position of the label, top or bottom. Defaults to element.getLabelPosition() or bottom */
   labelPosition?: LabelPosition;
   /** The maximum length of the label before truncation */
   truncateLength?: number;
@@ -92,30 +85,31 @@ interface PipelinesDefaultGroupProps {
   hulledOutline?: boolean;
 }
 
-type DefaultGroupInnerProps = Omit<PipelinesDefaultGroupProps, 'element'> & { element: Node };
+type PipelinesDefaultGroupInnerProps = Omit<PipelinesDefaultGroupProps, 'element'> & { element: Node };
 
-const DefaultGroupInner: React.FunctionComponent<DefaultGroupInnerProps> = observer(
+const PipelinesDefaultGroupInner: React.FunctionComponent<PipelinesDefaultGroupInnerProps> = observer(
   ({ className, element, onCollapseChange, ...rest }) => {
+    const childCount = element.getAllNodeChildren().length;
     const handleCollapse = (group: Node, collapsed: boolean): void => {
       if (collapsed && rest.collapsedWidth !== undefined && rest.collapsedHeight !== undefined) {
-        group.setBounds(group.getBounds().setSize(rest.collapsedWidth, rest.collapsedHeight));
+        group.setDimensions(new Dimensions(rest.collapsedWidth, rest.collapsedHeight));
       }
       group.setCollapsed(collapsed);
       onCollapseChange && onCollapseChange(group, collapsed);
     };
-
-    const childCount = element.getAllNodeChildren().length;
 
     if (element.isCollapsed()) {
       return (
         <PipelinesDefaultGroupCollapsed
           className={className}
           element={element}
-          badge={`${childCount}/${childCount}`}
           onCollapseChange={handleCollapse}
+          badge={`${childCount}`}
+          badgeColor="#f5f5f5"
+          badgeBorderColor="#d2d2d2"
+          badgeTextColor="#000000"
           {...rest}
         />
-
       );
     }
     return (
@@ -126,18 +120,18 @@ const DefaultGroupInner: React.FunctionComponent<DefaultGroupInnerProps> = obser
         {...rest}
       />
     );
-  },
+  }
 );
 
 const PipelinesDefaultGroup: React.FunctionComponent<PipelinesDefaultGroupProps> = ({
   element,
   ...rest
 }: PipelinesDefaultGroupProps) => {
-  // if (!isNode(element)) {
-  //   throw new Error('DefaultGroup must be used only on Node elements');
-  // }
+  if (!isNode(element)) {
+    throw new Error('DefaultGroup must be used only on Node elements');
+  }
 
-  return <DefaultGroupInner element={element} {...rest} />;
+  return <PipelinesDefaultGroupInner element={element} {...rest} />;
 };
 
 export default PipelinesDefaultGroup;

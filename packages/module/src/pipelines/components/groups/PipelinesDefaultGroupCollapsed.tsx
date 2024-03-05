@@ -7,7 +7,7 @@ import { WithDragNodeProps, WithSelectionProps, WithDndDropProps, WithContextMen
 import { CollapsibleGroupProps, Stadium, Layer, LabelBadge, PipelinesNodeLabel, NodeLabel } from "../../../components";
 import { NODE_SHADOW_FILTER_ID_HOVER } from "../../../components/nodes/NodeShadows";
 import { GROUPS_LAYER } from "../../../const";
-import { LabelPosition, BadgeLocation } from "../../../types";
+import { LabelPosition, BadgeLocation, Node } from "../../../types";
 import { useHover, useSize, useCombineRefs, createSvgIdUrl } from "../../../utils";
 
 type PipelinesDefaultGroupCollapsedProps = {

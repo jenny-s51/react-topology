@@ -2,34 +2,14 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { polygonHull } from 'd3-polygon';
 import { css } from '@patternfly/react-styles';
-import styles from '@patternfly/react-topology/src/css/topology-components';
+import styles from '../../../css/topology-components';
 import CollapseIcon from '@patternfly/react-icons/dist/esm/icons/compress-alt-icon';
-import {
-  BadgeLocation,
-  Layer,
-  Node,
-  NodeLabel,
-  useDragNode,
-  useSvgAnchor,
-  WithContextMenuProps,
-  WithDndDropProps,
-  WithDragNodeProps,
-  WithSelectionProps,
-  CollapsibleGroupProps,
-  hullPath,
-  maxPadding,
-  useCombineRefs,
-  useHover,
-  Rect,
-  GROUPS_LAYER,
-  TOP_LAYER,
-  NodeShape,
-  NodeStyle,
-  PointTuple,
-  isGraph,
-  LabelPosition
-} from '@patternfly/react-topology';
-import { PipelinesNodeLabel } from '../../../components';
+import { CollapsibleGroupProps, Layer, PipelinesNodeLabel } from "../../../components";
+import { WithDragNodeProps, WithSelectionProps, WithDndDropProps, WithContextMenuProps, useDragNode, useSvgAnchor } from "../../../behavior";
+import { GROUPS_LAYER, TOP_LAYER } from "../../../const";
+import { BadgeLocation, LabelPosition, isGraph, PointTuple, Node, NodeShape, NodeStyle } from "../../../types";
+import { useHover, useCombineRefs, maxPadding, hullPath } from "../../../utils";
+import Rect from '../../../geom/Rect';
 
 type PipelinesDefaultGroupExpandedProps = {
   className?: string;
@@ -99,7 +79,7 @@ export function computeLabelLocation(points: PointWithSize[], labelPosition?: La
     ];
   }
 
-  points.forEach((p) => {
+  points.forEach(p => {
     const delta = !lowPoints ? Infinity : Math.round(p[1]) - Math.round(lowPoints[0][1]);
     if (delta > threshold) {
       lowPoints = [p];
@@ -117,7 +97,11 @@ export function computeLabelLocation(points: PointWithSize[], labelPosition?: La
   const maxSize = lowPoints.reduce((acc, point) => {
     return Math.max(acc, point[2]);
   }, Number.NEGATIVE_INFINITY);
-  return [(minX + maxX) / 2, lowPoints[0][1], maxSize];
+  return [
+    (minX + maxX) / 2,
+    lowPoints[0][1],
+    maxSize,
+  ];
 }
 
 const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGroupExpandedProps> = ({
@@ -150,7 +134,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   labelPosition,
   labelIconPadding,
   onCollapseChange,
-  hulledOutline = true
+  hulledOutline = true,
 }) => {
   const [hovered, hoverRef] = useHover();
   const [labelHover, labelHoverRef] = useHover();
@@ -174,18 +158,13 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   const padding = maxPadding(element.getStyle<NodeStyle>().padding ?? 17);
   const hullPadding = (point: PointWithSize | PointTuple) => (point[2] || 0) + padding;
 
-  if (
-    !droppable ||
-    (hulledOutline && !pathRef.current) ||
-    (!hulledOutline && !boxRef.current) ||
-    !labelLocation.current
-  ) {
-    const children = element.getNodes().filter((c) => c.isVisible());
+  if (!droppable || (hulledOutline && !pathRef.current) || (!hulledOutline && !boxRef.current) || !labelLocation.current) {
+    const children = element.getNodes().filter(c => c.isVisible());
     if (children.length === 0) {
       return null;
     }
     const points: (PointWithSize | PointTuple)[] = [];
-    children.forEach((c) => {
+    children.forEach(c => {
       if (c.getNodeShape() === NodeShape.circle) {
         const bounds = c.getBounds();
         const { width, height } = bounds;
@@ -257,21 +236,14 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
           {hulledOutline ? (
             <path ref={outlineRef} className={styles.topologyGroupBackground} d={pathRef.current} />
           ) : (
-            <rect
-              ref={outlineRef}
-              className={styles.topologyGroupBackground}
-              x={boxRef.current.x}
-              y={boxRef.current.y}
-              width={boxRef.current.width}
-              height={boxRef.current.height}
-            />
+            <rect ref={outlineRef} className={styles.topologyGroupBackground} x={boxRef.current.x} y={boxRef.current.y} width={boxRef.current.width} height={boxRef.current.height}/>
           )}
         </g>
       </Layer>
       {showLabel && (label || element.getLabel()) && (
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <PipelinesNodeLabel
-            className="pf-topology-pipelines__group__label"
+            className={styles.topologyGroupLabel}
             x={startX}
             y={startY}
             paddingX={8}
@@ -292,6 +264,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
             onContextMenu={onContextMenu}
             contextMenuOpen={contextMenuOpen}
             hover={isHover || labelHover}
+            isExpanded
             actionIcon={collapsible ? <CollapseIcon /> : undefined}
             onActionIconClick={() => onCollapseChange(element, true)}
           >

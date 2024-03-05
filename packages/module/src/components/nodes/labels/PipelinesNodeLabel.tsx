@@ -32,6 +32,7 @@ type PipelinesNodeLabelProps = {
   dragging?: boolean;
   edgeDragging?: boolean;
   dropTarget?: boolean;
+  isExpanded?: boolean;
   actionIcon?: React.ReactElement;
   actionIconClassName?: string;
   onActionIconClick?: (e: React.MouseEvent) => void;
@@ -66,6 +67,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   labelIconClass,
   labelIcon,
   labelIconPadding = 4,
+  isExpanded = false,
   truncateLength,
   dragRef,
   hover,
@@ -134,7 +136,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
       startX = x + iconSpace;
       startY = y - height / 2;
     } else if (position === LabelPosition.left) {
-      startX = - width - paddingX;
+      startX = -width - paddingX;
       startY = y - height / 2 + paddingY;
     } else {
       startX = x - width / 2 + iconSpace / 2;
@@ -241,14 +243,14 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
       {textSize && actionIcon && (
           <LabelActionIcon
             ref={actionRef}
-            x={actionStartX}
+            x={actionStartX + paddingX}
             y={0}
             height={height}
             paddingX={paddingX}
             paddingY={paddingY}
             icon={actionIcon}
             isIconExternal
-            className={actionIconClassName}
+            className={isExpanded ? 'action-icon-expanded' : 'action-icon-collapsed'}
             onClick={onActionIconClick}
           />
       )}
