@@ -202,7 +202,7 @@ export const useDemoPipelineNodes = (
               label: `Group ${task.data.columnGroup}`,
               data: {
                 collapsedWidth: 75,
-                collapsedHeight: 42,
+                collapsedHeight: 75,
                 collapsible: true,
                 labelPosition: LabelPosition.top
               }

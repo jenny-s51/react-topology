@@ -6,7 +6,6 @@ import { Dimensions } from '../../../geom';
 import { GraphElement, LabelPosition, BadgeLocation, isNode, Node } from '../../../types';
 import PipelinesDefaultGroupCollapsed from './PipelinesDefaultGroupCollapsed';
 import PipelinesDefaultGroupExpanded from './PipelinesDefaultGroupExpanded';
-import { Badge } from "@patternfly/react-core";
 
 interface PipelinesDefaultGroupProps {
   /** Additional content added to the node */

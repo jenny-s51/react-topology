@@ -34,33 +34,12 @@ type StyleGroupProps = {
 
 const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
   element,
-  collapsedWidth = 75,
-  collapsedHeight = 60,
+  collapsedWidth,
+  collapsedHeight,
   ...rest
 }) => {
-  const groupElement = element as Node;
   const data = element.getData();
   const detailsLevel = element.getGraph().getDetailsLevel();
-
-  const getTypeIcon = (dataType?: DataTypes): any => {
-    switch (dataType) {
-      case DataTypes.Alternate:
-        return AlternateIcon;
-      default:
-        return DefaultIcon;
-    }
-  };
-
-  const renderIcon = (): React.ReactNode => {
-    const iconSize = Math.min(collapsedWidth, collapsedHeight) - ICON_PADDING * 2;
-const label = element.getLabel();
-
-    return (
-      <g transform={`translate(${(collapsedWidth - iconSize) / 2}, ${(collapsedHeight - iconSize) / 2})`}>
-        {label}
-      </g>
-    );
-  };
 
   const passedData = React.useMemo(() => {
     const newData = { ...data };
@@ -82,7 +61,6 @@ const label = element.getLabel();
       {...rest}
       {...passedData}
     >
-      {groupElement.isCollapsed() ? renderIcon() : null}
     </PipelinesDefaultGroup>
   );
 };

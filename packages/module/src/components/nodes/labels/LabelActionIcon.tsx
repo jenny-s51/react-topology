@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { useSize } from '../../../utils';
+import { createSvgIdUrl, useHover, useSize } from '../../../utils';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-components';
 import pipelineStyles from '../../../css/topology-pipelines';
-import { pipeline } from "stream";
+import { NODE_SHADOW_FILTER_ID_HOVER } from "../NodeShadows";
 
 
 interface LabelActionIconProps {
   className?: string;
   icon: React.ReactElement;
   isIconExternal?: boolean;
+  hover?: boolean;
   onClick: (e: React.MouseEvent) => void;
   iconOffsetX?: number;
   iconOffsetY?: number;
@@ -21,11 +22,15 @@ interface LabelActionIconProps {
 }
 
 const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
-  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }, actionRef) => {
+  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height}) => {
     const [iconSize, iconRef] = useSize([icon, paddingX]);
     const iconWidth = iconSize?.width ?? 0;
     const iconHeight = iconSize?.height ?? 0;
-    const iconY = (height - iconHeight) / 2;
+    const [hovered, hoverRef] = useHover();
+
+
+    const centerX = x + height / 2 - iconWidth / 2;
+    const centerY = y + height / 2 - iconHeight / 2;
 
     const classes = css(styles.topologyNodeActionIcon, className);
 
@@ -40,17 +45,18 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
       <g className={classes} onClick={handleClick}>
         {iconSize && (
           <rect
-            ref={actionRef}
+            ref={hoverRef}
+            filter={hovered && createSvgIdUrl(NODE_SHADOW_FILTER_ID_HOVER)}
             className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
-            width={iconWidth + paddingX * 2}
+            width={iconWidth + paddingX * 2 }
             height={height}
           />
         )}
         <g
           className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconIcon) : css(styles.topologyNodeActionIconIcon)}
-          transform={`translate(${x + paddingX + iconOffsetX}, ${y + iconY + iconOffsetY})`}
+          transform={`translate(${centerX}, ${centerY})`}
           ref={iconRef}
         >
           {icon}

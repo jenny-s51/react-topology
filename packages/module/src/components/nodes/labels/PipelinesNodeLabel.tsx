@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-components';
-import pipelinesStyles from '../../../css/topology-pipelines';
 import { truncateMiddle } from '../../../utils/truncate-middle';
 import { createSvgIdUrl, useCombineRefs, useHover, useSize } from '../../../utils';
 import { WithContextMenuProps, WithDndDragProps } from '../../../behavior';
 import NodeShadows, { NODE_SHADOW_FILTER_ID_DANGER, NODE_SHADOW_FILTER_ID_HOVER } from '../NodeShadows';
 import LabelBadge from './LabelBadge';
-import LabelContextMenu from './LabelContextMenu';
 import LabelIcon from './LabelIcon';
 import LabelActionIcon from './LabelActionIcon';
 import { BadgeLocation, LabelPosition, NodeStatus } from '../../../types';
@@ -22,7 +20,6 @@ type PipelinesNodeLabelProps = {
   position?: LabelPosition;
   cornerRadius?: number;
   status?: NodeStatus;
-  secondaryLabel?: string;
   truncateLength?: number; // Defaults to 13
   labelIconClass?: string; // Icon to show in label
   labelIcon?: React.ReactNode;
@@ -56,7 +53,6 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   x = 0,
   y = 0,
   position = LabelPosition.bottom,
-  secondaryLabel,
   status,
   badge,
   badgeColor,
@@ -74,10 +70,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   dragging,
   edgeDragging,
   dropTarget,
-  onContextMenu,
-  contextMenuOpen,
   actionIcon,
-  actionIconClassName,
   onActionIconClick,
   ...other
 }) => {
@@ -85,10 +78,8 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
   const refs = useCombineRefs(dragRef, typeof truncateLength === 'number' ? labelHoverRef : undefined);
 
   const [textSize, textRef] = useSize([children, truncateLength, className, labelHover]);
-  const [secondaryTextSize, secondaryTextRef] = useSize([secondaryLabel, truncateLength, className, labelHover]);
   const [badgeSize, badgeRef] = useSize([badge]);
   const [actionSize, actionRef] = useSize([actionIcon, paddingX]);
-  const [contextSize, contextRef] = useSize([onContextMenu, paddingX]);
 
   const {
     width,
@@ -99,9 +90,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     badgeStartX,
     badgeStartY,
     actionStartX,
-    contextStartX,
     iconSpace,
-    badgeSpace
   } = React.useMemo(() => {
     if (!textSize) {
       return {
@@ -122,10 +111,8 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     const height = Math.max(textSize.height, badgeSize?.height ?? 0) + paddingY * 2;
     const iconSpace = labelIconClass || labelIcon ? (height + paddingY * 0.5) / 2 : 0;
     const actionSpace = actionIcon && actionSize ? actionSize.width : 0;
-    const contextSpace = onContextMenu && contextSize ? contextSize.width : 0;
-    const primaryWidth = iconSpace + badgeSpace + paddingX + textSize.width + contextSpace + paddingX;
-    const secondaryWidth = secondaryLabel && secondaryTextSize ? secondaryTextSize.width + 2 * paddingX : 0;
-    const width = Math.max(primaryWidth, secondaryWidth);
+    const primaryWidth = iconSpace + badgeSpace + paddingX + textSize.width + paddingX;
+    const width = primaryWidth;
 
     let startX: number;
     let startY: number;
@@ -144,8 +131,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     }
     const actionStartX = iconSpace + badgeSpace + paddingX + textSize.width + paddingX;
     const contextStartX = actionStartX + actionSpace;
-    const backgroundHeight =
-      height + (secondaryLabel && secondaryTextSize ? secondaryTextSize.height + paddingY * 2 : 0);
+    const backgroundHeight = height;
     let badgeStartX = 0;
     let badgeStartY = 0;
     if (badgeSize) {
@@ -182,10 +168,6 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
     labelIcon,
     actionIcon,
     actionSize,
-    onContextMenu,
-    contextSize,
-    secondaryLabel,
-    secondaryTextSize,
     position,
     x,
     y
@@ -241,18 +223,18 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
         {truncateLength > 0 && !labelHover ? truncateMiddle(children, { length: truncateLength }) : children}
       </text>
       {textSize && actionIcon && (
-          <LabelActionIcon
-            ref={actionRef}
-            x={actionStartX + paddingX}
-            y={0}
-            height={height}
-            paddingX={paddingX}
-            paddingY={paddingY}
-            icon={actionIcon}
-            isIconExternal
-            className={isExpanded ? 'action-icon-expanded' : 'action-icon-collapsed'}
-            onClick={onActionIconClick}
-          />
+        <LabelActionIcon
+          ref={actionRef}
+          x={actionStartX + paddingX}
+          y={0}
+          height={height}
+          paddingX={paddingX}
+          paddingY={paddingY}
+          icon={actionIcon}
+          isIconExternal
+          className={isExpanded ? 'action-icon-expanded' : 'action-icon-collapsed'}
+          onClick={onActionIconClick}
+        />
       )}
     </g>
   );

@@ -596,6 +596,10 @@
 .action-icon-expanded {
   fill: var(--pf-v5-global--active-color--100);
 }
+.action-icon-expanded:hover {
+  fill: var(--pf-v5-global--primary-color--200);
+}
+
 
 .action-icon-expanded > .pf-topology-pipelines__node__action-icon__icon > svg {
   fill: white;
