@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useSize } from '../../../utils';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-components';
+import pipelineStyles from '../../../css/topology-pipelines';
+import { pipeline } from "stream";
+
 
 interface LabelActionIconProps {
   className?: string;
@@ -38,7 +41,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
         {iconSize && (
           <rect
             ref={actionRef}
-            className={isIconExternal ? css(styles.topologyNodeActionIconBackground) : 'pf-topology__node__pipelines-action-icon__background'}
+            className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
             width={iconWidth + paddingX * 2}
@@ -46,7 +49,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
           />
         )}
         <g
-          className={css(styles.topologyNodeActionIconIcon)}
+          className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconIcon) : css(styles.topologyNodeActionIconIcon)}
           transform={`translate(${x + paddingX + iconOffsetX}, ${y + iconY + iconOffsetY})`}
           ref={iconRef}
         >
