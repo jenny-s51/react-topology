@@ -240,8 +240,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
       {showLabel && (label || element.getLabel()) && (
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <PipelinesNodeLabel
-            className={styles.topologyGroupLabel}
-            x={startX - 38}
+P            x={startX - 38}
             y={startY}
             paddingX={8}
             paddingY={5}

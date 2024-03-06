@@ -4,11 +4,10 @@ import { css } from '@patternfly/react-styles';
 import styles from '@patternfly/react-topology/src/css/topology-components';
 import ExpandIcon from '@patternfly/react-icons/dist/esm/icons/expand-alt-icon';
 import { WithDragNodeProps, WithSelectionProps, WithDndDropProps, WithContextMenuProps, useDragNode } from "../../../behavior";
-import { CollapsibleGroupProps, Stadium, Layer, LabelBadge, PipelinesNodeLabel, NodeLabel } from "../../../components";
-import { NODE_SHADOW_FILTER_ID_HOVER } from "../../../components/nodes/NodeShadows";
+import { CollapsibleGroupProps, Stadium, Layer, PipelinesNodeLabel } from "../../../components";
 import { GROUPS_LAYER } from "../../../const";
 import { LabelPosition, BadgeLocation, Node } from "../../../types";
-import { useHover, useSize, useCombineRefs, createSvgIdUrl } from "../../../utils";
+import { useHover, useCombineRefs } from "../../../utils";
 
 type PipelinesDefaultGroupCollapsedProps = {
   children?: React.ReactNode;
@@ -44,20 +43,16 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
   children,
   hover,
   label,
-  secondaryLabel,
   showLabel = true,
   truncateLength,
   collapsedWidth,
   collapsedHeight,
-  getCollapsedShape,
   onCollapseChange,
   collapsedShadowOffset = 8,
-  dndDropRef,
   dragNodeRef,
   canDrop,
   dropTarget,
   onContextMenu,
-  contextMenuOpen,
   dragging,
   labelPosition,
   badge,
@@ -73,8 +68,7 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
   const [hovered, hoverRef] = useHover();
   const [labelHover, labelHoverRef] = useHover();
   const dragLabelRef = useDragNode()[1];
-  const [shapeSize, shapeRef] = useSize([collapsedWidth, collapsedHeight]);
-  const refs = useCombineRefs<SVGPathElement>(hoverRef, dragNodeRef, shapeRef);
+  const refs = useCombineRefs<SVGPathElement>(hoverRef, dragNodeRef);
   const isHover = hover !== undefined ? hover : hovered;
 
   const groupClassName = css(
@@ -85,8 +79,6 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
     dragging && 'pf-m-dragging',
     selected && 'pf-m-selected'
   );
-
-  const filter = isHover || dragging || dropTarget ? createSvgIdUrl(NODE_SHADOW_FILTER_ID_HOVER) : undefined;
 
   return (
     <g ref={labelHoverRef} onContextMenu={onContextMenu} onClick={onSelect} className={groupClassName}>

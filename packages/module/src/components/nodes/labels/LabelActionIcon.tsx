@@ -47,7 +47,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
           <rect
             ref={hoverRef}
             filter={hovered && createSvgIdUrl(NODE_SHADOW_FILTER_ID_HOVER)}
-            className={css(styles.topologyNodeActionIconBackground)}
+            className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
             width={iconWidth + paddingX * 2 }

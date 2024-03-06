@@ -10,10 +10,6 @@ import {
   WithSelectionProps,
   PipelinesDefaultGroup,
 } from '@patternfly/react-topology';
-import AlternateIcon from '@patternfly/react-icons/dist/esm/icons/regions-icon';
-import DefaultIcon from '@patternfly/react-icons/dist/esm/icons/builder-image-icon';
-
-const ICON_PADDING = 20;
 
 export enum DataTypes {
   Default,
