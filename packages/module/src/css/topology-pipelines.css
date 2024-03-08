@@ -616,10 +616,6 @@
   fill: var(--pf-topology-pipelines__node__label__background--fill);
 }
 
-/* .pf-topology-pipelines__group.pf-m-selected .pf-topology-pipelines__node__label__background {
-  fill: var(--pf-topology-pipelines__node__label__background--m-selected--fill);
-} */
-
 .pf-topology-pipelines__group-inner.pf-m-selected .pf-topology__group__background {
   --pf-topology__group__background--Fill: var(--pf-topology__group--m-selected--topology__group__background--Fill);
   --pf-topology__group__background--Stroke: var(--pf-topology__group--m-selected--topology__group__background--Stroke);
@@ -637,16 +633,16 @@
 }
 
 .pf-topology__node__action-icon {
-  fill: white;
+  fill: var(--pf-v5-global--Color--light-100);;
   stroke: var(--pf-v5-global--active-color--100)
 }
 
 .action-icon-expanded svg {
-  fill: white;
+  fill: var(--pf-v5-global--Color--light-100);
 }
 
 rect.pf-topology-pipelines__node__label__background.pf-m-selected + text {
-  fill: white;
+  fill: var(--pf-v5-global--Color--light-100);
 }
 
 .pf-topology-pipelines__group.pf-m-selected .pf-topology-pipelines__node__label__background {
@@ -654,18 +650,14 @@ rect.pf-topology-pipelines__node__label__background.pf-m-selected + text {
 }
 
 .pf-topology-pipelines__group.pf-m-selected .pf-topology-pipelines__node__label__background + text {
-  fill: white;
+  fill: var(--pf-v5-global--Color--light-100);
 }
 
 .pf-topology-pipelines__group.pf-m-selected pf-topology-pipelines__group__label text {
-  fill: white;
+  fill: var(--pf-v5-global--Color--light-100);
 }
 
 .pf-topology-pipelines__group.pf-m-selected .pf-topology-pipelines__group__background {
   --pf-topology__group__background--Fill: var(--pf-topology__group--m-selected--topology__group__background--Fill);
   --pf-topology__group__background--Stroke: var(--pf-topology__group--m-selected--topology__group__background--Stroke);
 }
-
-/* .pf-topology-pipelines__group.pf-m-selected text {
-  fill: white;
-} */
