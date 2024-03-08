@@ -154,7 +154,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
 
   // cast to number and coerce
   const padding = maxPadding(element.getStyle<NodeStyle>().padding ?? 17);
-  const extraPadding = labelPosition === LabelPosition.top ? 15 : 0; // add extra padding if label on top
+  const extraPadding = labelPosition === LabelPosition.top ? 25 : 25; // add extra padding if label on top
   const hullPadding = (point: PointWithSize | PointTuple) => (point[2] || 0) + padding + extraPadding;
 
   if (!droppable || (hulledOutline && !pathRef.current) || (!hulledOutline && !boxRef.current) || !labelLocation.current) {
@@ -221,12 +221,12 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   );
 
   const outlinePadding = hulledOutline ? hullPadding(labelLocation.current) : 0;
-  const labelGap = 24;
+  const labelGap = 20;
   const startX = labelLocation.current[0];
   const startY =
     labelPosition === LabelPosition.top
-      ? labelLocation.current[1] - outlinePadding - 20
-      : labelLocation.current[1] + outlinePadding + labelGap;
+      ? labelLocation.current[1] - outlinePadding - labelGap
+      : labelLocation.current[1] + outlinePadding - labelGap;
 
   return (
     <g ref={labelHoverRef} onClick={onSelect} className={groupClassName}>
