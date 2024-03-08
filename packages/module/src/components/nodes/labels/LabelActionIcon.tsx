@@ -20,12 +20,11 @@ interface LabelActionIconProps {
 }
 
 const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
-  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height}) => {
+  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }) => {
     const [iconSize, iconRef] = useSize([icon, paddingX]);
     const iconWidth = iconSize?.width ?? 0;
-    const iconHeight = iconSize?.height ?? 0;
-    // const [hovered, hoverRef] = useHover();
-
+    const iconHeight = iconSize?.height ?? 0; 
+    const iconY = (height - iconHeight) / 2;
 
     const centerX = x + height / 2 - iconWidth / 2;
     const centerY = y + height / 2 - iconHeight / 2;
@@ -46,13 +45,13 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
             className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
-            width={height}
+            width={isIconExternal ? height :iconWidth + paddingX * 2}
             height={height}
           />
         )}
         <g
           className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconIcon) : css(styles.topologyNodeActionIconIcon)}
-          transform={`translate(${centerX}, ${centerY})`}
+          transform={isIconExternal ? `translate(${centerX}, ${centerY})` : `translate(${x + paddingX + iconOffsetX}, ${y + iconY + iconOffsetY})`}
           ref={iconRef}
         >
           {icon}
