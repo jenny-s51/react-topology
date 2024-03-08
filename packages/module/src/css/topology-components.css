@@ -601,7 +601,7 @@
 }
 
 .pf-topology__group__label > text {
-  fill: var(--pf-topology__group__label__text--Fill);
+  fill: white;
   font-size: var(--pf-v5-global--FontSize--sm);
   pointer-events: none;
 }

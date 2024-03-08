@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { css } from '@patternfly/react-styles';
-import styles from '../../../css/topology-components';
+// import styles from '../../../css/topology-components';
+import pipelineStyles from '../../../css/topology-pipelines';
 import { truncateMiddle } from '../../../utils/truncate-middle';
 import { createSvgIdUrl, useCombineRefs, useHover, useSize } from '../../../utils';
 import { WithContextMenuProps, WithDndDragProps } from '../../../behavior';
@@ -185,7 +186,7 @@ const PipelinesNodeLabel: React.FunctionComponent<PipelinesNodeLabelProps> = ({
       <NodeShadows />
       {textSize && (
         <rect
-          className={css(styles.topologyNodeLabelBackground)}
+          className={css(pipelineStyles.topologyPipelinesNodeLabelBackground)}
           key={`rect-${filterId}`} // update key to force remount on filter update
           filter={filterId && createSvgIdUrl(filterId)}
           x={0}

@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { createSvgIdUrl, useHover, useSize } from '../../../utils';
+import { useSize } from '../../../utils';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-components';
 import pipelineStyles from '../../../css/topology-pipelines';
-import { NODE_SHADOW_FILTER_ID_HOVER } from "../NodeShadows";
-
 
 interface LabelActionIconProps {
   className?: string;
@@ -26,7 +24,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
     const [iconSize, iconRef] = useSize([icon, paddingX]);
     const iconWidth = iconSize?.width ?? 0;
     const iconHeight = iconSize?.height ?? 0;
-    const [hovered, hoverRef] = useHover();
+    // const [hovered, hoverRef] = useHover();
 
 
     const centerX = x + height / 2 - iconWidth / 2;
@@ -45,12 +43,10 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
       <g className={classes} onClick={handleClick}>
         {iconSize && (
           <rect
-            ref={hoverRef}
-            filter={hovered && createSvgIdUrl(NODE_SHADOW_FILTER_ID_HOVER)}
             className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
-            width={iconWidth + paddingX * 2 }
+            width={height}
             height={height}
           />
         )}

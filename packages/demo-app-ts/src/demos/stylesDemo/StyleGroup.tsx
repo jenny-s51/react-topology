@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  DefaultGroup,
   GraphElement,
   Node,
   observer,
@@ -7,9 +8,12 @@ import {
   ShapeProps,
   WithContextMenuProps,
   WithDragNodeProps,
-  WithSelectionProps,
-  PipelinesDefaultGroup,
+  WithSelectionProps
 } from '@patternfly/react-topology';
+import AlternateIcon from '@patternfly/react-icons/dist/esm/icons/regions-icon';
+import DefaultIcon from '@patternfly/react-icons/dist/esm/icons/builder-image-icon';
+
+const ICON_PADDING = 20;
 
 export enum DataTypes {
   Default,
@@ -30,12 +34,35 @@ type StyleGroupProps = {
 
 const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
   element,
-  collapsedWidth,
-  collapsedHeight,
+  onContextMenu,
+  contextMenuOpen,
+  collapsedWidth = 75,
+  collapsedHeight = 75,
   ...rest
 }) => {
+  const groupElement = element as Node;
   const data = element.getData();
   const detailsLevel = element.getGraph().getDetailsLevel();
+
+  const getTypeIcon = (dataType?: DataTypes): any => {
+    switch (dataType) {
+      case DataTypes.Alternate:
+        return AlternateIcon;
+      default:
+        return DefaultIcon;
+    }
+  };
+
+  const renderIcon = (): React.ReactNode => {
+    const iconSize = Math.min(collapsedWidth, collapsedHeight) - ICON_PADDING * 2;
+    const Component = getTypeIcon(data.dataType);
+
+    return (
+      <g transform={`translate(${(collapsedWidth - iconSize) / 2}, ${(collapsedHeight - iconSize) / 2})`}>
+        <Component style={{ color: '#393F44' }} width={iconSize} height={iconSize} />
+      </g>
+    );
+  };
 
   const passedData = React.useMemo(() => {
     const newData = { ...data };
@@ -48,7 +75,9 @@ const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
   }, [data]);
 
   return (
-    <PipelinesDefaultGroup
+    <DefaultGroup
+      onContextMenu={data.showContextMenu ? onContextMenu : undefined}
+      contextMenuOpen={contextMenuOpen}
       element={element}
       collapsible
       collapsedWidth={collapsedWidth}
@@ -57,7 +86,8 @@ const StyleGroup: React.FunctionComponent<StyleGroupProps> = ({
       {...rest}
       {...passedData}
     >
-    </PipelinesDefaultGroup>
+      {groupElement.isCollapsed() ? renderIcon() : null}
+    </DefaultGroup>
   );
 };
 

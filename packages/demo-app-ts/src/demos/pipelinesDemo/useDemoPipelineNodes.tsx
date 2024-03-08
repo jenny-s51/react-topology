@@ -152,7 +152,6 @@ export const useDemoPipelineNodes = (
           group: true,
           label: 'Parallel tasks',
           data: {
-            selected: true,
             badge: 'Label',
             collapsedWidth: 75,
             collapsedHeight: 42,

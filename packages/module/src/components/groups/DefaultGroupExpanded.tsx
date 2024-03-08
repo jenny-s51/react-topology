@@ -252,7 +252,7 @@ const DefaultGroupExpanded: React.FunctionComponent<DefaultGroupExpandedProps> =
       {showLabel && (label || element.getLabel()) && (
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <NodeLabel
-            // className={styles.topologyGroupLabel}
+            className={styles.topologyGroupLabel}
             x={startX}
             y={startY}
             paddingX={8}

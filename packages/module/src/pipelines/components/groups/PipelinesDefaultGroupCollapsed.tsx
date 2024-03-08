@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { css } from '@patternfly/react-styles';
-import styles from '@patternfly/react-topology/src/css/topology-components';
+import styles from '@patternfly/react-topology/src/css/topology-pipelines';
 import ExpandIcon from '@patternfly/react-icons/dist/esm/icons/expand-alt-icon';
 import { WithDragNodeProps, WithSelectionProps, WithDndDropProps, WithContextMenuProps, useDragNode } from "../../../behavior";
 import { CollapsibleGroupProps, Stadium, Layer, PipelinesNodeLabel } from "../../../components";
@@ -72,7 +72,7 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
   const isHover = hover !== undefined ? hover : hovered;
 
   const groupClassName = css(
-    styles.topologyGroup,
+    styles.topologyPipelinesGroup,
     className,
     canDrop && 'pf-m-highlight',
     canDrop && dropTarget && 'pf-m-drop-target',
@@ -87,7 +87,7 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
             <>
               <g transform={`translate(${collapsedShadowOffset * 2}, 0)`}>
                 <Stadium
-                  className={css(styles.topologyNodeBackground, 'pf-m-disabled')}
+                  className={css(styles.topologyPipelinesNodeBackground, 'pf-m-disabled')}
                   element={element}
                   width={1}
                   height={1}
@@ -98,7 +98,7 @@ const PipelinesDefaultGroupCollapsed: React.FunctionComponent<PipelinesDefaultGr
       </Layer>
       {showLabel && (
         <PipelinesNodeLabel
-          className={styles.topologyGroupLabel}
+          className={styles.topologyPipelinesGroupLabel}
           x={collapsedWidth / 2}
           y={labelPosition === LabelPosition.top ? 0 : collapsedHeight + 6}
           paddingX={8}

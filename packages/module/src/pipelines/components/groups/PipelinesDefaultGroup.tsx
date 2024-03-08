@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { OnSelect, WithDndDragProps, ConnectDragSource, ConnectDropTarget } from '../../../behavior';
+import { OnSelect, WithDndDragProps, ConnectDragSource, ConnectDropTarget, WithSelectionProps } from '../../../behavior';
 import { ShapeProps } from '../../../components';
 import { Dimensions } from '../../../geom';
 import { GraphElement, LabelPosition, BadgeLocation, isNode, Node } from '../../../types';
@@ -84,7 +84,7 @@ interface PipelinesDefaultGroupProps {
   hulledOutline?: boolean;
 }
 
-type PipelinesDefaultGroupInnerProps = Omit<PipelinesDefaultGroupProps, 'element'> & { element: Node };
+type PipelinesDefaultGroupInnerProps = Omit<PipelinesDefaultGroupProps, 'element'> & { element: Node } & WithSelectionProps;
 
 const PipelinesDefaultGroupInner: React.FunctionComponent<PipelinesDefaultGroupInnerProps> = observer(
   ({ className, element, onCollapseChange, ...rest }) => {
@@ -116,6 +116,9 @@ const PipelinesDefaultGroupInner: React.FunctionComponent<PipelinesDefaultGroupI
         className={className}
         element={element}
         onCollapseChange={handleCollapse}
+        badgeColor="#f5f5f5"
+        badgeBorderColor="#d2d2d2"
+        badgeTextColor="#000000"
         {...rest}
       />
     );

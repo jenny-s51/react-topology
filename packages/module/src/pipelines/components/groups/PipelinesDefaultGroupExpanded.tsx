@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { polygonHull } from 'd3-polygon';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-components';
+import pipelineStyles from '../../../css/topology-pipelines';
 import CollapseIcon from '@patternfly/react-icons/dist/esm/icons/compress-alt-icon';
 import { CollapsibleGroupProps, Layer, PipelinesNodeLabel } from "../../../components";
 import { WithDragNodeProps, WithSelectionProps, WithDndDropProps, WithContextMenuProps, useDragNode, useSvgAnchor } from "../../../behavior";
@@ -153,7 +154,8 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
 
   // cast to number and coerce
   const padding = maxPadding(element.getStyle<NodeStyle>().padding ?? 17);
-  const hullPadding = (point: PointWithSize | PointTuple) => (point[2] || 0) + padding;
+  const extraPadding = labelPosition === LabelPosition.top ? 15 : 0; // add extra padding if label on top
+  const hullPadding = (point: PointWithSize | PointTuple) => (point[2] || 0) + padding + extraPadding;
 
   if (!droppable || (hulledOutline && !pathRef.current) || (!hulledOutline && !boxRef.current) || !labelLocation.current) {
     const children = element.getNodes().filter(c => c.isVisible());
@@ -200,7 +202,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   }
 
   const groupClassName = css(
-    styles.topologyGroup,
+    pipelineStyles.topologyPipelinesGroup,
     className,
     altGroup && 'pf-m-alt-group',
     canDrop && 'pf-m-highlight',
@@ -208,7 +210,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
     selected && 'pf-m-selected'
   );
   const innerGroupClassName = css(
-    styles.topologyGroup,
+    pipelineStyles.topologyPipelinesGroupInner,
     className,
     altGroup && 'pf-m-alt-group',
     canDrop && 'pf-m-highlight',
@@ -223,7 +225,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
   const startX = labelLocation.current[0];
   const startY =
     labelPosition === LabelPosition.top
-      ? labelLocation.current[1] - outlinePadding - labelGap * 2
+      ? labelLocation.current[1] - outlinePadding - 20
       : labelLocation.current[1] + outlinePadding + labelGap;
 
   return (
@@ -240,7 +242,7 @@ const PipelinesDefaultGroupExpanded: React.FunctionComponent<PipelinesDefaultGro
       {showLabel && (label || element.getLabel()) && (
         <Layer id={isHover ? TOP_LAYER : undefined}>
           <PipelinesNodeLabel
-P            x={startX - 38}
+            x={startX}
             y={startY}
             paddingX={8}
             paddingY={5}
