@@ -20,7 +20,7 @@ interface LabelActionIconProps {
 }
 
 const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
-  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }) => {
+  ({ icon, isIconExternal, onClick, className, x, y, paddingX, height, iconOffsetX = 0, iconOffsetY = 0 }, actionRef) => {
     const [iconSize, iconRef] = useSize([icon, paddingX]);
     const iconWidth = iconSize?.width ?? 0;
     const iconHeight = iconSize?.height ?? 0; 
@@ -42,6 +42,7 @@ const LabelActionIcon = React.forwardRef<SVGRectElement, LabelActionIconProps>(
       <g className={classes} onClick={handleClick}>
         {iconSize && (
           <rect
+            ref={actionRef}
             className={isIconExternal ? css(pipelineStyles.topologyPipelinesNodeActionIconBackground) : css(styles.topologyNodeActionIconBackground)}
             x={x}
             y={y}
