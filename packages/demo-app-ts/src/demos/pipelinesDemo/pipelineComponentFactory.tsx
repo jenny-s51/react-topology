@@ -20,7 +20,7 @@ import {
 import DemoTaskNode from './DemoTaskNode';
 import DemoFinallyNode from './DemoFinallyNode';
 import DemoTaskGroupEdge from './DemoTaskGroupEdge';
-import { DemoPipelinesGroup } from "./DemoPipelinesGroup";
+import DemoPipelinesGroup from './DemoPipelinesGroup';
 
 export const GROUPED_EDGE_TYPE = 'GROUPED_EDGE';
 

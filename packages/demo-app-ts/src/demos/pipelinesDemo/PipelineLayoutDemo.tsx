@@ -30,8 +30,6 @@ import PipelineOptionsBar from './PipelineOptionsBar';
 
 export const PIPELINE_NODE_SEPARATION_VERTICAL = 65;
 
-export const LAYOUT_TITLE = 'Layout';
-
 const GROUP_PREFIX = 'Grouped_';
 const VERTICAL_SUFFIX = '_Vertical';
 const PIPELINE_LAYOUT = 'PipelineLayout';
