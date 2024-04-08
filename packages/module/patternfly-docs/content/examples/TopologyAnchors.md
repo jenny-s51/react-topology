@@ -5,8 +5,6 @@ sortValue: 13
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyAnchorsDemo.tsx
 ---
 
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
-
 import {
   AbstractAnchor,
   AnchorEnd,
@@ -28,6 +26,8 @@ import {
 
 import './topology-example.css';
 
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
 ### Using custom anchors
 
 By default, Nodes use a default anchor `CenterAnchor` which use the center of the bounds of the node. A variety of anchors are provided for different node shapes that will set the anchor locations to the edge of the node.
@@ -48,6 +48,8 @@ A custom anchor must extend the `AbstractAnchor` class. There are two methods us
   - Should return the location of the anchor based on the incoming reference point. Default anchors use the point on the node border closest to the reference point.
 - `getReferencePoint(): Point`
   - Should return the location where outgoing edges would initiate from
+
+### Example
 
 ```ts file="./TopologyAnchorsDemo.tsx"
 ```

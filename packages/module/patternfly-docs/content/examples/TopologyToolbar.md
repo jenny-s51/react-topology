@@ -6,8 +6,6 @@ sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/modu
 propComponents: ['TopologyView']
 ---
 
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
-
 import {
   BadgeLocation,
   ColaLayout,
@@ -39,7 +37,9 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-### Topology with a toolbar
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
+### Using a toolbar
 
 To add a toolbar to the topology view, wrap your `VisualizationProvider` with the `TopologyView` component, which will accept `viewToolbar` and/or `contextToolbar` as props.
 
@@ -53,6 +53,8 @@ The GraphElement components can retrieve state from the controller via:
 and react to that state accordingly.
 
 You will need to pass in the corresponding props and the related `viewOptions` state values into your custom `DefaultNode` component for all the view options you want to track.
+
+### Example
 
 ```ts file='./TopologyToolbarDemo.tsx'
 ```

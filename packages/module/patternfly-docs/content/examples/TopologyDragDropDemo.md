@@ -1,11 +1,10 @@
 ---
-id: Drag and Drop
+id: Drag and drop
 section: topology
 sortValue: 24
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyDragDropDemo.tsx
 propComponents: ['DefaultNode', 'DefaultEdge', 'withDndDrop']
 ---
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
 
 import {
 ColaLayout,
@@ -36,7 +35,9 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-### Drag and Drop
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
+### Drag and drop
 
 To add drag and drop functionality, in your component factory:
 
@@ -52,8 +53,8 @@ accepts these refs and adds them to the appropriate terminals.
 ```ts file='./TopologyDragDropDemo.tsx'
 ```
 
-## Functions
-### withDragNode
+### Functions
+#### withDragNode
 ```noLive
 /**
  * Parameters:
@@ -65,7 +66,7 @@ accepts these refs and adds them to the appropriate terminals.
 export const withDragNode = (spec?: DragSourceSpec) => 
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
-### withSourceDrag
+#### withSourceDrag
 ```noLive
 /**
  * Parameters:
@@ -78,7 +79,7 @@ export const withSourceDrag = (spec: DragSourceSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 
 ```
-### withTargetDrag
+#### withTargetDrag
 ```noLive
 /**
  * Parameters:
@@ -90,7 +91,7 @@ export const withSourceDrag = (spec: DragSourceSpec) =>
 export const withTargetDrag = (spec: DragSourceSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
-### withDndDrop
+#### withDndDrop
 ```noLive
 /**
  * Parameters:

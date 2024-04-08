@@ -5,8 +5,6 @@ sortValue: 21
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologySelectableDemo.tsx
 ---
 
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
-
 import {
   ColaLayout,
   DefaultEdge,
@@ -28,6 +26,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
 ### Using selection
 
 To allow nodes/edges to be selectable, you can use the `withSelection` utility when returning the component in the componentFactory, e.g.: `withSelection()(MyCustomNode)`.
@@ -43,6 +43,8 @@ If you are using `DefaultNode`, these props can be passed along and will be hand
 By default, the application must control selection state. This can be done by adding a listener to the controller for a `SELECTION_EVENT`. The listener would then keep track of the selectedIds and maintain the ids in state and pass that state along to the `VisualizationSurface`.
 
 Alternatively, you can pass `{ controlled: true }` to the `withSelection` utility or to the `useSelection` hook.
+
+### Example
 
 ```ts file='./TopologySelectableDemo.tsx'
 ```

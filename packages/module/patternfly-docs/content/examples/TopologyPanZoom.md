@@ -1,11 +1,9 @@
 ---
-id: Pan/Zoom
+id: Pan and zoom
 section: topology
 sortValue: 22
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyPanZoomDemo.tsx
 ---
-
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
 
 import {
   ColaLayout,
@@ -28,6 +26,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
 ### Providing pan and zoom on the graph
 
 To allow the user to pan and zoom on the graph, you can use the `withPanZoom` utility when returning the graph component in the componentFactory: `withPanZoom(GraphComponent)`
@@ -37,6 +37,8 @@ The component should accept a `panZoomRef` property. This should be the ref on t
 Alternatively, you can use the `usePanZoom` hook within the component to retrieve the `panZoomRef` property.
 
 If you are using the provided `GraphComponent`, this property is accepted and will be handled appropriately.
+
+### Example
 
 ```ts file='./TopologyPanZoomDemo.tsx'
 ```

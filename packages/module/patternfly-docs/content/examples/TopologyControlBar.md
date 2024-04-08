@@ -1,13 +1,11 @@
 ---
-id: Control Bar
+id: Control bar
 section: topology
 sortValue: 31
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyControlBarDemo.tsx
 propComponents: ['TopologyControlBar', 'TopologyView']
 
 ---
-
-Note: Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology)
 
 import {
   action,
@@ -35,7 +33,9 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-### Topology with a control bar
+**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+
+### Using a control bar
 
 To add a control bar to the topology view, wrap your `VisualizationProvider` with the `TopologyView` component, which accepts `controlBar` as a prop.
 
@@ -94,6 +94,8 @@ Pass the `TopologyControlBar` component to the `controlBar` prop, and pass the `
            // application specific code to show a legend (no default support)
          })
        ```
+
+### Example
 
 ```ts file="./TopologyControlBarDemo.tsx"
 ```
