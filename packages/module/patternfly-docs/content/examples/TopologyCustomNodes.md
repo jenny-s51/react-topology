@@ -26,7 +26,7 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+**Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 ### Using custom nodes
 
@@ -34,7 +34,7 @@ To create nodes with custom styling, you will need to create a custom node compo
 
 To do this, you will need:
 
-- A `<CustomNode>` component, with `CustomNodeProps` as the generic type, and the destructured `element` as the parameter. The code in the following example shows how you can get data from `element` and apply it to the attributes of `<DefaultNode>`.
+- A `<CustomNode>` component, with `CustomNodeProps` as the generic type and the destructured `element` as the parameter. The code in the following example shows how you can retrive data from `element` and apply it to the attributes of `<DefaultNode>`.
 
 Within each node in your `NODES` array, you can set `data` to include additional custom attributes.
 

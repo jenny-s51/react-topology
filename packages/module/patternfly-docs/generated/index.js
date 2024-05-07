@@ -72,9 +72,9 @@ module.exports = {
     Component: () => import(/* webpackChunkName: "topology/drag-and-drop/extensions/index" */ './topology/drag-and-drop/extensions')
   },
   '/topology/about-topology/extensions': {
-    id: "About Topology",
-    title: "About Topology",
-    toc: [[{"text":"React Topology"},{"text":"Example"}]],
+    id: "About topology",
+    title: "About topology",
+    toc: [[{"text":"React Topology"},{"text":"Demo-app"},{"text":"Example"}]],
     examples: ["Example"],
     section: "topology",
     subsection: "",

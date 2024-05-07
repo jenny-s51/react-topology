@@ -26,20 +26,23 @@ import {
 import Icon1 from '@patternfly/react-icons/dist/esm/icons/regions-icon';
 import './topology-example.css';
 
+
 **Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 ### Using context menus
 
-Context menus can be used to show a menu of actions or links related to a graph element that will trigger a process or navigate to a new location. The menus are shown when right clicking on elements in the graph. Nodes, edges, and the graph itself can have context menus.
+A **context menu** displays a list of actions or links related to a graph element. Nodes, edges, and the graph itself can have context menus, which are shown when you right-click on a graph element. 
+Selecting a menu item will trigger a process or navigate to a new location.  
 
-To add context menus to an element, you can use the `withContextMenu` utility when returning the component in the componentFactory, e.g.: `withContextMenu(() => contextMenu)(MyCustomNode)`.
+To add a context menu to an element, use the `withContextMenu` utility when you return a component in the `componentFactory`. For example, `withContextMenu(() => contextMenu)(MyCustomNode)`. The component should accept 2 parameters: 
 
-The component should accept two parameters, `onContextMenu` and `contextMenuOpen` (you can simply extend `WithContextMenuProps`).
-
-- `onContextMenu`: function to call upon node selection. Typically the outer container for the component would call onContextMenu when clicked.
-- `contextMenuOpen`: indicates if the menu is currently open. Updates the drawing of the component to indicate its toggle status.
+- `onContextMenu`: The function to call upon node selection. Typically the outer container for the component would call `onContextMenu` when clicked.
+- `contextMenuOpen`: Indicates if the menu is currently open and applies styling to the respective component.
 
 If you are using `DefaultNode`, these props can be passed along and will be handled appropriately.
+
+<!--(you can simply extend `WithContextMenuProps`).-->
+
 
 ### Example 
 

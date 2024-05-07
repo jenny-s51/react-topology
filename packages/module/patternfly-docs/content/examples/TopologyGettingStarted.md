@@ -1,5 +1,5 @@
 ---
-id: About Topology
+id: About topology
 section: topology
 sortValue: 1
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyGettingStartedDemo.tsx
@@ -25,7 +25,7 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+**Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 ### React Topology
 
@@ -56,6 +56,9 @@ Follow these steps to set up your development environment for Topology:
 1. To create your topology view component, add a `<VisualizationProvider>`, which is a useful context provider. It allows access to the created controller and is required when using the `<VisualizationSurface>` component.
 
 1. Use `<VisualizationSurface>` to provide the SVG component required for your topology components. `<VisualizationSurface>` can take a state parameter, which enables you to pass your state settings to the controller.
+
+### Demo-app
+
 
 ### Example
 
