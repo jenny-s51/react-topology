@@ -4,6 +4,7 @@ section: topology
 sortValue: 71
 sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/module/patternfly-docs/content/examples/TopologyPipelinesGettingStartedDemo.tsx
 propComponents: ['TaskNode', 'TaskEdge', 'WhenDecorator']
+# TODO: uncomment when typedoc / typescript is updated
 functions: { 'packages/module/src/pipelines/utils/utils.ts': ['getSpacerNodes', 'getEdgesFromNodes'] }
 ---
 
