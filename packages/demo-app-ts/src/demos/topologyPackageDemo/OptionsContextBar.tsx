@@ -44,7 +44,7 @@ const OptionsContextBar: React.FC = observer(() => {
         onOpenChange={(isOpen) => setNodeOptionsOpen(isOpen)}
         onSelect={() => {}}
         isOpen={nodeOptionsOpen}
-        placeholder="Node options"
+        // placeholder="Node options"
         toggle={nodeOptionsToggle}
       >
         <SelectList>
