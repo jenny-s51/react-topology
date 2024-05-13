@@ -34,9 +34,9 @@ import {
 
 import './topology-pipelines-example.css';
 
-**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+**Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### Using pipelines
+## Using pipelines
 
 1. Create a new Controller which can be done using the default `Visualization` class.
 
@@ -68,8 +68,8 @@ import './topology-pipelines-example.css';
 ```ts file='./TopologyPipelinesGettingStartedDemo.tsx'
 ```
 
-### Functions
-#### getSpacerNodes
+## Functions
+### getSpacerNodes
 ```noLive
 /**
  * parameters:
@@ -88,7 +88,7 @@ const getSpacerNodes = (
 ): PipelineNodeModel[]
 ```
 
-#### getEdgesFromNodes
+### getEdgesFromNodes
 ```noLive
 /**
  * parameters:

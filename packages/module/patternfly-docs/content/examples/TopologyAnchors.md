@@ -28,7 +28,7 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### Using custom anchors
+## Using custom anchors
 
 By default, nodes use a `CenterAnchor`, which uses the center of the bounds of the node. You can use a different anchor for a different node shape, which will set the anchor locations to the edge of the node.
 
@@ -50,7 +50,7 @@ A custom anchor must extend the `AbstractAnchor` class. There are two methods us
   - Should return the location where outgoing edges would initiate from
 
 
-### Example
+## Example
 
 ```ts file="./TopologyAnchorsDemo.tsx"
 ```

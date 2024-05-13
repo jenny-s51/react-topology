@@ -36,7 +36,7 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### Using custom edges
+## Using custom edges
 
 To customize the style of edges in a Topology view, you can use the following `<EdgeModel>` properties:
 - `edgeStyle`: Choose from the `<EdgeStyle>` enumeration providing solid, dashed, or dotted
@@ -44,7 +44,7 @@ To customize the style of edges in a Topology view, you can use the following `<
 
 You can customize your edges further by creating a custom edge component. In the component, you can specify a variety of parameters to pass to `<DefaultEdge>` or you can create the SVG elements to depict the edge.
 
-### Example
+## Example
 
 ```ts file='./TopologyCustomEdgesDemo.tsx'
 ```

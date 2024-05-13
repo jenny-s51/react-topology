@@ -27,11 +27,11 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### React Topology
+PatternFly's **Topology** is an open source utility built off of [@patternfly/react-core](https://www.npmjs.com/package/@patternfly/react-core) that you can use to create a visual representation of all the applications within your project, their build status, and the components and services associated with them. Creating these visuals can help document and communicate the intricacies of the processes behind your product.
 
-The React Topology package can be used to xyz. It contains xyz. This guide outlines the steps necessary to get started using React Topology.
+To create a Topology view for your product, you can create a simple foundation of nodes, which represent your data points, and connecting edges, which represent the relationships between nodes. Beyond this basis, you can continue to customize and enhance your Topology view to fit the specific needs of your product.
 
-#### Getting started
+## Getting started
 
 In order to use React Topology, you will first need to transform your back-end data into a [Model](https://github.com/patternfly/react-topology/blob/main/packages/module/src/types.ts#L16-L20) that contains the information needed to display nodes and edges within a topology view. Each node and edge has a set of properties used by Topology, as well as a data field that can be used to customize the nodes and edges by the application.
 
@@ -57,10 +57,11 @@ Follow these steps to set up your development environment for Topology:
 
 1. Use `<VisualizationSurface>` to provide the SVG component required for your topology components. `<VisualizationSurface>` can take a state parameter, which enables you to pass your state settings to the controller.
 
-### Demo-app
+## Demo app
 
+[View instructions for running the demo app on GitHub.](https://github.com/patternfly/react-topology?tab=readme-ov-file#demo-app)
 
-### Example
+## Example
 
 ```ts file='./TopologyGettingStartedDemo.tsx'
 ```

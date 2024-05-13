@@ -28,7 +28,7 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### Using custom nodes
+## Using custom nodes
 
 To create nodes with custom styling, you will need to create a custom node component, which your `customComponentFactory` will return.
 
@@ -38,7 +38,7 @@ To do this, you will need:
 
 Within each node in your `NODES` array, you can set `data` to include additional custom attributes.
 
-### Example
+## Example
 
 ```ts file='./TopologyCustomNodesDemo.tsx'
 ```

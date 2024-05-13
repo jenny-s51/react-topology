@@ -26,9 +26,9 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-**Note:** PatternFly's React Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
+**Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-### Using selection
+## Using selection
 
 To allow nodes/edges to be selectable, you can use the `withSelection` utility when returning the component in the componentFactory, e.g.: `withSelection()(MyCustomNode)`.
 
@@ -44,7 +44,7 @@ By default, the application must control selection state. This can be done by ad
 
 Alternatively, you can pass `{ controlled: true }` to the `withSelection` utility or to the `useSelection` hook.
 
-### Example
+## Example
 
 ```ts file='./TopologySelectableDemo.tsx'
 ```
