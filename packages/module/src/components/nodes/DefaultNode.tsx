@@ -203,7 +203,6 @@ const DefaultNodeInner: React.FunctionComponent<DefaultNodeInnerProps> = observe
         y={y}
         radius={DEFAULT_DECORATOR_RADIUS}
         showBackground
-        onClick={e => onStatusDecoratorClick(e, element)}
         icon={<g className={css(styles.topologyNodeDecoratorStatus)}>{icon}</g>}
         ariaLabel={status}
         innerRef={decoratorRef}
