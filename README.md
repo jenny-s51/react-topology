@@ -232,4 +232,4 @@ yarn start:demo-app:hot
 ![Demo app landing page.](packages/module/patternfly-docs/content/examples/img/topology-demo-app.png)
 
 ## Need help? 
-If you find a bug, have a request, or have any questions about Topology that aren't answered in our documentation, please [reach out to us on Slack.]()
+If you find a bug, have a request, or have any questions about Topology that aren't answered in our documentation, please [reach out to us on Slack.](https://patternfly.slack.com/archives/CK7URGJ2W)

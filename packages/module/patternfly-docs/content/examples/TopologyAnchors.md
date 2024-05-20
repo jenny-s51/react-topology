@@ -28,27 +28,30 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
+An **anchor** is the point within a node where edges connect.
+
+By default, nodes use a `CenterAnchor`, which refers to the center of the bounds of the node. You can use different anchors for different node shapes.
+
 ## Using custom anchors
 
-By default, nodes use a `CenterAnchor`, which uses the center of the bounds of the node. You can use a different anchor for a different node shape, which will set the anchor locations to the edge of the node.
+You can customize the start and end points for a node edge by specifying the anchors.
 
-You can customize the start and end locations for edges on a node by specifying the anchors to use on the node.
+You can specify the SVG element that determines edge locations by using the provided hooks: 
+- **`usePolygonAnchor`**
+- **`useSvgAnchor`**
+- **`useAnchor`:** Allows you to specify your own custom anchor or provide a function that returns a specific anchor.
+  - This is useful for adjusting the anchor based on the node being displayed.
 
-Hooks are provided to enable you to specify the SVG element you wish to use for determining the edge locations: `usePolygonAnchor`, and `useSvgAnchor`
-These hooks accept parameters allowing you to customize when to use the anchor:
-- `points` (usePolygonAnchor only) to specify the points for the polygon
-- `AnchorEnd` to specify use for start, end or both
-- `type` to specify which edge types to use the anchor for (optional)
+These hooks accept the following parameters, allowing you to customize when to use the anchor:
 
-The `useAnchor` hook allows you to specify your own custom anchor or provide a function to return a specific anchor (useful for adjusting the anchor based on the node being displayed).
+- **`points` (for `usePolygonAnchor` only):** The points for the polygon.
+- **`AnchorEnd`:** Use for start, end, or both.
+- **`type` (optional):** Which edge types to use the anchor for.
 
-A custom anchor must extend the `AbstractAnchor` class. There are two methods used for anchors:
+A custom anchor must extend the `AbstractAnchor` class. There are 2 methods used for anchors:
 
-- `getLocation(reference: Point): Point`
-  - Should return the location of the anchor based on the incoming reference point. Default anchors use the point on the node border closest to the reference point.
-- `getReferencePoint(): Point`
-  - Should return the location where outgoing edges would initiate from
-
+- **`getLocation(reference: Point): Point`:** Return the location of the anchor, based on the incoming reference point. Default anchors use the point on the node border closest to the reference point.
+- **`getReferencePoint(): Point`:** Return the location where outgoing edges initiate from.
 
 ## Example
 

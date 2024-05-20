@@ -36,13 +36,17 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-## Using custom edges
+An **edge** is a node connector, typically represented by an arrow.
+
+## Edge styles 
 
 To customize the style of edges in a Topology view, you can use the following `<EdgeModel>` properties:
-- `edgeStyle`: Choose from the `<EdgeStyle>` enumeration providing solid, dashed, or dotted
-- `animationSpeed`: Choose from the `<EdgeAnimationSpeed>` enumeration providing various speeds
+- **`edgeStyle`:** Choose from the `<EdgeStyle>` enumeration, providing "solid", "dashed", or "dotted".
+- **`animationSpeed`:** Choose from the `<EdgeAnimationSpeed>` enumeration, providing various speeds.
 
-You can customize your edges further by creating a custom edge component. In the component, you can specify a variety of parameters to pass to `<DefaultEdge>` or you can create the SVG elements to depict the edge.
+## Using custom edges
+
+You can further customize your edges by creating a custom edge component. In your custom component, you can specify a variety of parameters to pass to `<DefaultEdge>`, or you can create an SVG element that will be used to depict edges.
 
 ## Example
 

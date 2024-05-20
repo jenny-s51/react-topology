@@ -28,15 +28,16 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-## Providing pan and zoom on the graph
+**Pan and zoom** functionality provides users with additional methods of navigating in a Topology view.
 
-To allow the user to pan and zoom on the graph, you can use the `withPanZoom` utility when returning the graph component in the componentFactory: `withPanZoom(GraphComponent)`
+## Using pan and zoom
 
-The component should accept a `panZoomRef` property. This should be the ref on the surface element for the group, the element that will accept the drag or mouse wheel events.
+To allow users to pan and zoom in a Topology view, use the `withPanZoom` utility when you return the graph component in the `<ComponentFactory>`
+  - For example: `withPanZoom(GraphComponent)`
 
-Alternatively, you can use the `usePanZoom` hook within the component to retrieve the `panZoomRef` property.
+The component should accept a `panZoomRef` property, which should be the ref on the surface element for the group. This is the element that will accept the drag or mouse-wheel events.
 
-If you are using the provided `GraphComponent`, this property is accepted and will be handled appropriately.
+Alternatively, you can use the `usePanZoom` hook within the component to retrieve the `panZoomRef` property. If you are using the provided `GraphComponent`, this property is accepted and will be handled appropriately.
 
 ## Example
 

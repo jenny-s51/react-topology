@@ -37,17 +37,20 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
+**Drag and drop** functionality allows users to move Topology view elements as needed.
+
 ## Drag and drop
 
-To add drag and drop functionality, in your component factory:
+To add drag and drop functionality to your Topology view, add the following in your `<ComponentFactory>`:
 
-Nodes can be dragged about the canvas by using the `useDragNode` hook or by wrapping the node component with `withDragNode`.
-These utilities will provide a `dragNodeRef`. This ref should be added to outer element of the Node where the user can click and drag the node.
-`DefaultNode` accepts the `dragNodeRef` and adds it appropriately.
+- Nodes can be dragged about the canvas by using the `useDragNode` hook, or by wrapping the `<Node>` component with `withDragNode`.
 
-Edges can be dragged in order to change the source and/or target of the edge using the `withSourceDrag` and/or `withTargetDrag`. These utilities
-will provide a `sourceDragRef` and a `targetDragRef` which should be added to the respective terminals for the edge. `DefaultEdge`
-accepts these refs and adds them to the appropriate terminals.
+  - These utilities will provide a `dragNodeRef`, which should be added to the outer element of the node, where users can click and drag.
+  - `DefaultNode` accepts `dragNodeRef` and adds it appropriately.
+
+- Edges can be dragged in order to change the source and/or target of the edge by using either `withSourceDrag` and/or `withTargetDrag`. 
+  - These utilities will provide a `sourceDragRef` and a `targetDragRef`, which should be added to the respective terminals for the edge. 
+  - `DefaultEdge` accepts these utilities and adds them to the appropriate terminals.
 
 
 ```ts file='./TopologyDragDropDemo.tsx'
@@ -103,3 +106,6 @@ export const withTargetDrag = (spec: DragSourceSpec) =>
  export const withDndDrop = (spec: DropTargetSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
+
+
+

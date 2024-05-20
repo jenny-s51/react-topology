@@ -38,7 +38,7 @@ module.exports = {
   '/topology/custom-edges/extensions': {
     id: "Custom edges",
     title: "Custom edges",
-    toc: [[{"text":"Untitled example"}],{"text":"Using custom edges"},{"text":"Example"}],
+    toc: [[{"text":"Untitled example"}],{"text":"Edge styles"},{"text":"Using custom edges"},{"text":"Example"}],
     examples: ["Untitled example"],
     section: "topology",
     subsection: "",
@@ -86,8 +86,8 @@ module.exports = {
   '/topology/layouts/extensions': {
     id: "Layouts",
     title: "Layouts",
-    toc: [{"text":"Layouts"},[{"text":"Force"},{"text":"Dagre"},{"text":"Cola"},{"text":"ColaGroups"},{"text":"Grid"},{"text":"Concentric"},{"text":"BreadthFirst"}],{"text":"Example"}],
-    examples: ["BreadthFirst"],
+    toc: [[{"text":"Untitled example"}],{"text":"Example"}],
+    examples: ["Untitled example"],
     section: "topology",
     subsection: "",
     source: "extensions",
@@ -157,7 +157,7 @@ module.exports = {
   '/topology/about-topology/extensions': {
     id: "About topology",
     title: "About topology",
-    toc: [[{"text":"Untitled example"}],{"text":"Getting started"},{"text":"Demo app"},{"text":"Example"}],
+    toc: [[{"text":"Untitled example"}],{"text":"Prerequisites"},{"text":"Installing Topology"},{"text":"Initial setup and usage"},{"text":"Demo app"},{"text":"Example"}],
     examples: ["Untitled example"],
     section: "topology",
     subsection: "",
@@ -169,7 +169,7 @@ module.exports = {
   '/topology/pan-and-zoom/extensions': {
     id: "Pan and zoom",
     title: "Pan and zoom",
-    toc: [[{"text":"Untitled example"}],{"text":"Providing pan and zoom on the graph"},{"text":"Example"}],
+    toc: [[{"text":"Untitled example"}],{"text":"Using pan and zoom"},{"text":"Example"}],
     examples: ["Untitled example"],
     section: "topology",
     subsection: "",
