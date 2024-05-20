@@ -18,18 +18,21 @@ const pipelineGroupsComponentFactory: ComponentFactory = (
   type: string
 ): React.ComponentType<{ element: GraphElement }> | undefined => {
   if (kind === ModelKind.graph) {
-    return withPanZoom()(GraphComponent);
+    return withPanZoom()(withSelection()(GraphComponent));
   }
   switch (type) {
     case 'Execution':
+    case 'EXECUTION_TASK_NODE':
       return withSelection()(DemoTaskGroup);
     case 'Task':
+    case 'DEFAULT_TASK_NODE':
+    case 'ICON_TASK_NODE':
       return withSelection()(DemoTaskNode);
     case DEFAULT_SPACER_NODE_TYPE:
       return SpacerNode;
     case 'edge':
       // draw arrow terminal when isDependency is set on data
-      return DemoTaskEdge;
+      return withSelection()(DemoTaskEdge);
     default:
       return undefined;
   }

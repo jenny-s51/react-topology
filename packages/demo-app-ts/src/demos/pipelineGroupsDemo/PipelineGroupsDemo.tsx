@@ -19,14 +19,19 @@ import {
   TOP_TO_BOTTOM,
   PipelineNodeModel,
   useVisualizationController,
+  addSpacerNodes,
+  pipelineElementFactory,
+  isEdge,
+  Edge,
 } from '@patternfly/react-topology';
 import pipelineGroupsComponentFactory from './pipelineGroupsComponentFactory';
-import { createDemoPipelineGroupsNodes } from './createDemoPipelineGroupsNodes';
+import {
+  createComplexDemoPipelineGroupsNodes,
+  createDemoPipelineGroupsNodes
+} from './createDemoPipelineGroupsNodes';
 import { PipelineGroupsDemoContext, PipelineGroupsDemoModel } from './PipelineGroupsDemoContext';
 import OptionsBar from './OptionsBar';
 import DemoControlBar from '../DemoControlBar';
-import pipelineElementFactory
-  from '@patternfly/react-topology/dist/esm/pipelines/elements/pipelineElementFactory';
 
 const TopologyPipelineGroups: React.FC<{ nodes: PipelineNodeModel[] }> = observer(({ nodes }) => {
   const controller = useVisualizationController();
@@ -34,11 +39,32 @@ const TopologyPipelineGroups: React.FC<{ nodes: PipelineNodeModel[] }> = observe
   const [selectedIds, setSelectedIds] = React.useState<string[]>();
 
   useEventListener<SelectionEventListener>(SELECTION_EVENT, ids => {
+    if (ids?.[0]) {
+      const element = controller?.getElementById(ids[0]);
+      if (element && isEdge(element)) {
+        const edge = element as Edge;
+        const selectedEdges = [edge.getId()];
+        const source = edge.getSource();
+        const target = edge.getTarget();
+        if (source.getType() === DEFAULT_SPACER_NODE_TYPE) {
+          const sourceEdges = source.getTargetEdges();
+          selectedEdges.push(...sourceEdges.map((e) => e.getId()));
+        }
+        if (target.getType() === DEFAULT_SPACER_NODE_TYPE) {
+          const targetEdges = target.getSourceEdges();
+          selectedEdges.push(...targetEdges.map((e) => e.getId()));
+        }
+        setSelectedIds(selectedEdges);
+        return;
+      }
+    }
     setSelectedIds(ids);
   });
 
   React.useEffect(() => {
-    const edges = getEdgesFromNodes(nodes, DEFAULT_SPACER_NODE_TYPE, 'edge', 'edge');
+    const pipelineNodes = addSpacerNodes(nodes);
+    const edges = getEdgesFromNodes(pipelineNodes, DEFAULT_SPACER_NODE_TYPE, 'edge', 'edge');
+
     controller.fromModel(
       {
         graph: {
@@ -48,7 +74,7 @@ const TopologyPipelineGroups: React.FC<{ nodes: PipelineNodeModel[] }> = observe
           y: 25,
           layout: options.verticalLayout ? TOP_TO_BOTTOM : LEFT_TO_RIGHT
         },
-        nodes,
+        nodes: pipelineNodes,
         edges,
       },
       false
@@ -64,7 +90,7 @@ const TopologyPipelineGroups: React.FC<{ nodes: PipelineNodeModel[] }> = observe
 
 TopologyPipelineGroups.displayName = 'TopologyPipelineLayout';
 
-export const PipelineGroupsDemo = observer(() => {
+export const PipelineGroupsDemoComponent: React.FC<{ complex?: boolean }> = ({ complex }) => {
   const controller = new Visualization();
   controller.registerElementFactory(pipelineElementFactory);
   controller.registerComponentFactory(pipelineGroupsComponentFactory);
@@ -77,7 +103,7 @@ export const PipelineGroupsDemo = observer(() => {
         ignoreGroups: true,
       })
   );
-  const nodes = createDemoPipelineGroupsNodes();
+  const nodes = complex ? createComplexDemoPipelineGroupsNodes() : createDemoPipelineGroupsNodes();
   return (
     <div className="pf-ri__topology-demo">
       <VisualizationProvider controller={controller}>
@@ -87,4 +113,13 @@ export const PipelineGroupsDemo = observer(() => {
       </VisualizationProvider>
     </div>
   );
-});
+};
+
+export const PipelineGroupsDemo = () => {
+  return <PipelineGroupsDemoComponent />
+};
+
+export const PipelineGroupsComplexDemo = () => {
+  return <PipelineGroupsDemoComponent complex />
+};
+

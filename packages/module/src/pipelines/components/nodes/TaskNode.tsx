@@ -165,7 +165,7 @@ const TaskNodeInner: React.FC<TaskNodeInnerProps> = observer(({
   const taskRef = React.useRef();
   const taskIconComponentRef = React.useRef();
   const isHover = hover !== undefined ? hover : hovered;
-  const { width } = element.getBounds();
+  const { width, height: boundsHeight } = element.getBounds();
   const label = truncateMiddle(element.getLabel(), { length: truncateLength, omission: '...' });
   const [textSize, textRef] = useSize([label, className]);
   const nameLabelTriggerRef = React.useRef();
@@ -233,7 +233,8 @@ const TaskNodeInner: React.FC<TaskNodeInnerProps> = observer(({
         badgeStartX: 0,
         iconWidth: 0,
         iconStartX: 0,
-        leadIconStartX: 0
+        leadIconStartX: 0,
+        offsetX: 0
       };
     }
     const height: number = textHeight + 2 * paddingY;
@@ -303,16 +304,25 @@ const TaskNodeInner: React.FC<TaskNodeInnerProps> = observer(({
   ]);
 
   React.useEffect(() => {
+    const sourceEdges = element.getSourceEdges();
     action(() => {
-      const sourceEdges = element.getSourceEdges();
+      const indent = detailsLevel === ScaleDetailsLevel.high && !verticalLayout ? width - pillWidth : 0;
       sourceEdges.forEach(edge => {
         const data = edge.getData();
-        edge.setData({
-          ...(data || {}),
-          indent: detailsLevel === ScaleDetailsLevel.high && !verticalLayout ? width - pillWidth : 0
-        });
+        if ((data?.indent ?? 0) !== indent) {
+          edge.setData({ ...(data || {}), indent });
+        }
       });
     })();
+
+    return action(() => {
+      sourceEdges.forEach(edge => {
+        const data = edge.getData();
+        if (data?.indent) {
+          edge.setData({...(data || {}), indent: 0});
+        }
+      });
+    });
   }, [detailsLevel, element, pillWidth, verticalLayout, width]);
 
   const scale = element.getGraph().getScale();
@@ -390,11 +400,12 @@ const TaskNodeInner: React.FC<TaskNodeInnerProps> = observer(({
   const renderTask = () => {
     if (showStatusState && !scaleNode && hideDetailsAtMedium && detailsLevel !== ScaleDetailsLevel.high) {
       const statusBackgroundRadius = statusIconSize / 2 + 4;
-      const height = element.getBounds().height;
       const upScale = 1 / scale;
 
+      const translateX = verticalLayout ? width / 2 - statusBackgroundRadius * upScale: 0;
+      const translateY = verticalLayout ? 0 : (boundsHeight - statusBackgroundRadius * 2 * upScale) / 2;
       return (
-        <g transform={`translate(0, ${(height - statusBackgroundRadius * 2 * upScale) / 2}) scale(${upScale})`} ref={taskRef}>
+        <g transform={`translate(${translateX}, ${translateY}) scale(${upScale})`} ref={taskRef}>
           <circle
             className={css(
               styles.topologyPipelinesStatusIconBackground,
