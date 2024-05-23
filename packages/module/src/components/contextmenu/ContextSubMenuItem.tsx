@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Dropdown, DropdownItem } from '@patternfly/react-core';
+import AngleRightIcon from '@patternfly/react-icons/dist/esm/icons/angle-right-icon';
 import { css } from '@patternfly/react-styles';
 import topologyStyles from '../../css/topology-components';
 // FIXME fully qualified due to the effect of long build times on storybook
 import Popper from '../popper/Popper';
-import AngleRightIcon from '@patternfly/react-icons/dist/esm/icons/angle-right-icon';
 
 interface ContextSubMenuItemProps {
   label: React.ReactNode;

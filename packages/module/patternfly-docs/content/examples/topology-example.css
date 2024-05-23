@@ -10,10 +10,9 @@
 .ws-extensions-t-selection,
 .ws-extensions-t-sidebar,
 .ws-extensions-t-toolbar {
-  height: 600px;
-  border: 1px solid var(--pf-v6-global--palette--black-900);
+  border: 1px solid var(--pf-t--color--black);
   padding: 0;
-  margin: var(--pf-v6-global--spacer--md);
+  margin: var(--pf-t--global--spacer--300);
 }
 
 @media (min-width: 768px) {
@@ -33,7 +32,7 @@
 .pf-theme-dark .ws-extensions-t-selection,
 .pf-theme-dark .ws-extensions-t-sidebar,
 .pf-theme-dark .ws-extensions-t-toolbar {
-  border: 1px solid var(--pf-v6-global--palette--black-100);
+  border: 1px solid var(--pf-t--color--gray--20);
 }
 
 .ws-extensions-t-topology .pf-v6-l-stack {

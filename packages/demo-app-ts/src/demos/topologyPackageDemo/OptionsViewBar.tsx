@@ -11,7 +11,7 @@ import {
   SplitItem,
   TextInput,
   ToolbarItem,
-  Tooltip,
+  Tooltip
 } from '@patternfly/react-core';
 import { Controller, Model, observer } from '@patternfly/react-topology';
 import { DemoContext } from './DemoContext';
