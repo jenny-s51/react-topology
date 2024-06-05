@@ -1,4 +1,16 @@
 module.exports = {
+  '/topology/about-topology/extensions': {
+    id: "About Topology",
+    title: "About Topology",
+    toc: [[{"text":"Untitled example"}],{"text":"Prerequisites"},{"text":"Installing Topology"},{"text":"Initial setup and usage"},{"text":"Demo app"},{"text":"Example"}],
+    examples: ["Untitled example"],
+    section: "topology",
+    subsection: "",
+    source: "extensions",
+    tabName: null,
+    sortValue: 1,
+    Component: () => import(/* webpackChunkName: "topology/about-topology/extensions/index" */ './topology/about-topology/extensions')
+  },
   '/topology/anchors/extensions': {
     id: "Anchors",
     title: "Anchors",
@@ -50,8 +62,8 @@ module.exports = {
   '/topology/custom-nodes/extensions': {
     id: "Custom nodes",
     title: "Custom nodes",
-    toc: [[{"text":"Untitled example"}],{"text":"Using custom nodes"},{"text":"Example"}],
-    examples: ["Untitled example"],
+    toc: [{"text":"Using custom nodes"},[{"text":"Example"}]],
+    examples: ["Example"],
     section: "topology",
     subsection: "",
     source: "extensions",
@@ -71,18 +83,6 @@ module.exports = {
     sortValue: 24,
     Component: () => import(/* webpackChunkName: "topology/drag-and-drop/extensions/index" */ './topology/drag-and-drop/extensions')
   },
-  '/topology/getting-started/extensions': {
-    id: "Getting started",
-    title: "Getting started",
-    toc: [[{"text":"Getting started with react-topology"}]],
-    examples: ["Getting started with react-topology"],
-    section: "topology",
-    subsection: "",
-    source: "extensions",
-    tabName: null,
-    sortValue: 1,
-    Component: () => import(/* webpackChunkName: "topology/getting-started/extensions/index" */ './topology/getting-started/extensions')
-  },
   '/topology/layouts/extensions': {
     id: "Layouts",
     title: "Layouts",
@@ -94,17 +94,17 @@ module.exports = {
     tabName: null,
     Component: () => import(/* webpackChunkName: "topology/layouts/extensions/index" */ './topology/layouts/extensions')
   },
-  '/topology/panzoom/extensions': {
-    id: "Pan/Zoom",
-    title: "Pan/Zoom",
-    toc: [[{"text":"Providing pan and zoom on the graph"}]],
-    examples: ["Providing pan and zoom on the graph"],
+  '/topology/pan-and-zoom/extensions': {
+    id: "Pan and zoom",
+    title: "Pan and zoom",
+    toc: [[{"text":"Untitled example"}],{"text":"Using pan and zoom"},{"text":"Example"}],
+    examples: ["Untitled example"],
     section: "topology",
     subsection: "",
     source: "extensions",
     tabName: null,
     sortValue: 22,
-    Component: () => import(/* webpackChunkName: "topology/panzoom/extensions/index" */ './topology/panzoom/extensions')
+    Component: () => import(/* webpackChunkName: "topology/pan-and-zoom/extensions/index" */ './topology/pan-and-zoom/extensions')
   },
   '/topology/pipelines/extensions': {
     id: "Pipelines",
@@ -153,29 +153,5 @@ module.exports = {
     tabName: null,
     sortValue: 32,
     Component: () => import(/* webpackChunkName: "topology/toolbar/extensions/index" */ './topology/toolbar/extensions')
-  },
-  '/topology/about-topology/extensions': {
-    id: "About topology",
-    title: "About topology",
-    toc: [[{"text":"Untitled example"}],{"text":"Prerequisites"},{"text":"Installing Topology"},{"text":"Initial setup and usage"},{"text":"Demo app"},{"text":"Example"}],
-    examples: ["Untitled example"],
-    section: "topology",
-    subsection: "",
-    source: "extensions",
-    tabName: null,
-    sortValue: 1,
-    Component: () => import(/* webpackChunkName: "topology/about-topology/extensions/index" */ './topology/about-topology/extensions')
-  },
-  '/topology/pan-and-zoom/extensions': {
-    id: "Pan and zoom",
-    title: "Pan and zoom",
-    toc: [[{"text":"Untitled example"}],{"text":"Using pan and zoom"},{"text":"Example"}],
-    examples: ["Untitled example"],
-    section: "topology",
-    subsection: "",
-    source: "extensions",
-    tabName: null,
-    sortValue: 22,
-    Component: () => import(/* webpackChunkName: "topology/pan-and-zoom/extensions/index" */ './topology/pan-and-zoom/extensions')
   }
 };

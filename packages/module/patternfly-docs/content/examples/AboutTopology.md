@@ -36,21 +36,24 @@ To create a Topology view for your product, you can create a simple foundation o
 To use Topology, you will need to have both [Node Active LTS](https://github.com/nodejs/Release#release-schedule) and [Yarn](https://yarnpkg.com/) installed.
 
 1. Install and develop with the most up-to-date version of Node Active LTS. For example, to develop with Node 8, you would use the following commands:
+
     ```
     nvm install 8
     nvm use 8
     ```
-1. Install and use version 1.6.0 or later of Yarn.
+2. Install and use version 1.6.0 or later of Yarn.
 
 ## Installing Topology
 
 Once you have all of the prequisites, you can install the Topology package with Yarn or npm:
 
-1. Using Yarn
+1. Using Yarn:
+   
     ```
     yarn add @patternfly/react-topology
     ```
-1. Using npm
+2. Using npm:
+   
     ```
     npm install @patternfly/react-topology --save
     ```
