@@ -33,6 +33,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 A **control bar** adds visualization controls to a Topology view, so that users can more easily explore.
@@ -43,7 +45,7 @@ To add a control bar to the Topology view:
 
 1. Wrap your `VisualizationProvider` with the `<TopologyView>` component, which accepts `controlBar` as a property.
 
-1. Pass the `<TopologyControlBar>` component to the `controlBar` property, and pass the `controlButtons` property into `<TopologyControlBar>`. 
+1. Pass the `<TopologyControlBar>` component to the `controlBar` property, and pass the `controlButtons` property into `<TopologyControlBar>`.
 
 1. Call the `createTopologyControlButtons` function, which will create  common control buttons via several parameters:
 
@@ -101,7 +103,7 @@ To add a control bar to the Topology view:
           })
         ```
 
-## Example
+### Example
 
 ```ts file="./TopologyControlBarDemo.tsx"
 ```

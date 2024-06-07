@@ -26,6 +26,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 **Pan and zoom** functionality provides users with additional methods of navigating in a Topology view.
@@ -39,7 +41,7 @@ The component should accept a `panZoomRef` property, which should be the ref on 
 
 Alternatively, you can use the `usePanZoom` hook within the component to retrieve the `panZoomRef` property. If you are using the provided `GraphComponent`, this property is accepted and will be handled appropriately.
 
-## Example
+### Example
 
 ```ts file='./TopologyPanZoomDemo.tsx'
 ```

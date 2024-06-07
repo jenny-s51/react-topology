@@ -26,6 +26,8 @@ import {
 import Icon1 from '@patternfly/react-icons/dist/esm/icons/regions-icon';
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 A **context menu** displays a list of actions or links related to a graph element. Nodes, edges, and the graph itself can have context menus, which are shown when you right-click on a graph element. Selecting a menu item will trigger a process or navigate to a new location.  
@@ -41,7 +43,7 @@ If you are using `DefaultNode`, these properties can be passed along and will be
 
 <!--(you can simply extend `WithContextMenuProps`).-->
 
-## Example 
+### Example 
 
 ```ts file='./TopologyContextMenuDemo.tsx'
 ```

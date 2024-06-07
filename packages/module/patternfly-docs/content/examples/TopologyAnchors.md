@@ -26,6 +26,8 @@ import {
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 An **anchor** is the point within a node where edges connect.
@@ -53,7 +55,7 @@ A custom anchor must extend the `AbstractAnchor` class. There are 2 methods used
 - **`getLocation(reference: Point): Point`:** Return the location of the anchor, based on the incoming reference point. Default anchors use the point on the node border closest to the reference point.
 - **`getReferencePoint(): Point`:** Return the location where outgoing edges initiate from.
 
-## Example
+### Example
 
 ```ts file="./TopologyAnchorsDemo.tsx"
 ```

@@ -35,6 +35,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 **Drag and drop** functionality allows users to move Topology view elements as needed.
@@ -48,16 +50,19 @@ To add drag and drop functionality to your Topology view, add the following in y
   - These utilities will provide a `dragNodeRef`, which should be added to the outer element of the node, where users can click and drag.
   - `DefaultNode` accepts `dragNodeRef` and adds it appropriately.
 
-- Edges can be dragged in order to change the source and/or target of the edge by using either `withSourceDrag` and/or `withTargetDrag`. 
-  - These utilities will provide a `sourceDragRef` and a `targetDragRef`, which should be added to the respective terminals for the edge. 
+- Edges can be dragged in order to change the source and/or target of the edge by using either `withSourceDrag` and/or `withTargetDrag`.
+  - These utilities will provide a `sourceDragRef` and a `targetDragRef`, which should be added to the respective terminals for the edge.
   - `DefaultEdge` accepts these utilities and adds them to the appropriate terminals.
 
+### Example
 
 ```ts file='./TopologyDragDropDemo.tsx'
 ```
 
-## Functions
-### withDragNode
+### Functions
+
+#### withDragNode
+
 ```noLive
 /**
  * Parameters:
@@ -69,7 +74,9 @@ To add drag and drop functionality to your Topology view, add the following in y
 export const withDragNode = (spec?: DragSourceSpec) => 
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
-### withSourceDrag
+
+#### withSourceDrag
+
 ```noLive
 /**
  * Parameters:
@@ -82,7 +89,9 @@ export const withSourceDrag = (spec: DragSourceSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 
 ```
-### withTargetDrag
+
+#### withTargetDrag
+
 ```noLive
 /**
  * Parameters:
@@ -94,7 +103,9 @@ export const withSourceDrag = (spec: DragSourceSpec) =>
 export const withTargetDrag = (spec: DragSourceSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
-### withDndDrop
+
+#### withDndDrop
+
 ```noLive
 /**
  * Parameters:
@@ -106,6 +117,3 @@ export const withTargetDrag = (spec: DragSourceSpec) =>
  export const withDndDrop = (spec: DropTargetSpec) =>
   (wrappedComponent: React.FunctionComponent) =>  React.ComponentType);
 ```
-
-
-

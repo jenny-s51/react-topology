@@ -34,6 +34,8 @@ import {
 
 import './topology-pipelines-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 A **pipeline** displays a series of connected tasks, shown in the order that they occur.
@@ -68,6 +70,8 @@ To create a pipeline:
 1. To create your Topology view component, add a `VisualizationProvider`, which is a useful context provider that enables access to your controller. It is required when using the `VisualizationSurface` component.
 
 1. Use `VisualizationSurface` to provide the SVG component required for the Topology components. `VisualizationSurface` can take a "state" parameter, which will allow you to pass your state settings to the controller.
+
+### Example
 
 ```ts file='./TopologyPipelinesGettingStartedDemo.tsx'
 ```

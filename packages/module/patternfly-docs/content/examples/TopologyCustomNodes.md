@@ -6,7 +6,6 @@ sourceLink: https://github.com/patternfly/react-topology/blob/main/packages/modu
 propComponents: ['DefaultNode', 'DefaultEdge', 'DefaultGroup']
 ---
 
-
 import {
   ColaLayout,
   DefaultEdge,
@@ -27,7 +26,7 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
-# About
+# Introduction
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
