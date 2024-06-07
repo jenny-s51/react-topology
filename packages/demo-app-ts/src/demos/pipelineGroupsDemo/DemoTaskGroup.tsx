@@ -13,8 +13,10 @@ import {
   useHover,
   ScaleDetailsLevel,
   RunStatus
+  // NodeLabel
 } from '@patternfly/react-topology';
 import { DEFAULT_TASK_HEIGHT, GROUP_TASK_WIDTH } from './createDemoPipelineGroupsNodes';
+import TaskGroupPillLabel from '@patternfly/react-topology/dist/esm/pipelines/components/groups/TaskGroupPillLabel';
 
 type DemoTaskGroupProps = {
   element: GraphElement;
@@ -42,6 +44,7 @@ const DemoTaskGroup: React.FunctionComponent<DemoTaskGroupProps> = ({ element, .
         collapsible
         collapsedWidth={GROUP_TASK_WIDTH}
         collapsedHeight={DEFAULT_TASK_HEIGHT}
+        GroupLabelComponent={TaskGroupPillLabel}
         element={element as Node}
         centerLabelOnEdge
         recreateLayoutOnCollapseChange

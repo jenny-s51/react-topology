@@ -28,6 +28,7 @@ const DefaultTaskGroupExpanded: React.FunctionComponent<Omit<DefaultTaskGroupPro
       showLabel = true,
       showLabelOnHover,
       hideDetailsAtMedium,
+      GroupLabelComponent = NodeLabel,
       truncateLength,
       canDrop,
       dropTarget,
@@ -53,12 +54,16 @@ const DefaultTaskGroupExpanded: React.FunctionComponent<Omit<DefaultTaskGroupPro
       const [labelHover, labelHoverRef] = useHover(0);
       const dragLabelRef = useDragNode()[1];
       const [labelSize, labelRef] = useSize([centerLabelOnEdge]);
+      const taskRef = React.useRef();
+      const pillRef = useSize();
       const refs = useCombineRefs<SVGPathElement>(hoverRef, dragNodeRef);
       const isHover = hover !== undefined ? hover : hovered || labelHover;
       const verticalLayout = (element.getGraph().getLayoutOptions?.() as DagreLayoutOptions)?.rankdir === TOP_TO_BOTTOM;
       const groupLabelPosition = labelPosition ?? element.getLabelPosition() ?? LabelPosition.bottom;
       let parent = element.getParent();
       const detailsLevel = element.getGraph().getDetailsLevel();
+      const { width } = element.getBounds();
+
       let altGroup = false;
       while (!isGraph(parent)) {
         altGroup = !altGroup;
@@ -217,6 +222,44 @@ const DefaultTaskGroupExpanded: React.FunctionComponent<Omit<DefaultTaskGroupPro
             </g>
             {groupLabel && isHover ? <Layer id={TOP_LAYER}>{groupLabel}</Layer> : groupLabel}
           </Layer>
+          {showLabel && (label || element.getLabel()) && (
+            <Layer id={isHover ? TOP_LAYER : undefined}>
+              <GroupLabelComponent
+                element={element}
+                boxRef={labelRef}
+                className={styles.topologyGroupLabel}
+                x={labelX}
+                y={labelY}
+                position={labelPosition}
+                centerLabelOnEdge={centerLabelOnEdge}
+                paddingX={8}
+                paddingY={5}
+                dragRef={dragNodeRef ? dragLabelRef : undefined}
+                // status={element.getNodeStatus()}
+                secondaryLabel={secondaryLabel}
+                truncateLength={truncateLength}
+                badge={badge}
+                badgeColor={badgeColor}
+                badgeTextColor={badgeTextColor}
+                badgeBorderColor={badgeBorderColor}
+                badgeClassName={badgeClassName}
+                badgeLocation={badgeLocation}
+                labelIconClass={labelIconClass}
+                labelIcon={labelIcon}
+                labelIconPadding={labelIconPadding}
+                onContextMenu={onContextMenu}
+                contextMenuOpen={contextMenuOpen}
+                hover={isHover || labelHover}
+                actionIcon={collapsible ? <CollapseIcon /> : undefined}
+                onActionIconClick={() => onCollapseChange(element, true)}
+                width={width}
+                taskRef={taskRef}
+                pillRef={pillRef as any}
+              >
+                {label || element.getLabel()}
+              </GroupLabelComponent>
+            </Layer>
+          )}
         </g>
       );
     }

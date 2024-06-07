@@ -10,8 +10,10 @@ import LabelContextMenu from './LabelContextMenu';
 import LabelIcon from './LabelIcon';
 import LabelActionIcon from './LabelActionIcon';
 import { BadgeLocation, LabelPosition, NodeStatus } from '../../../types';
+import { Node } from '../../../types';
 
-type NodeLabelProps = {
+export type NodeLabelProps = {
+  element?: Node;
   children?: string;
   className?: string;
   paddingX?: number;
@@ -20,6 +22,7 @@ type NodeLabelProps = {
   y?: number;
   position?: LabelPosition;
   centerLabelOnEdge?: boolean;
+  // isLabelPillShape?: boolean;
   boxRef?: React.Ref<SVGRectElement>;
   cornerRadius?: number;
   status?: NodeStatus;
@@ -57,6 +60,7 @@ const NodeLabel: React.FunctionComponent<NodeLabelProps> = ({
   y = 0,
   position = LabelPosition.bottom,
   centerLabelOnEdge,
+  // isLabelPillShape,
   secondaryLabel,
   status,
   badge,
@@ -200,6 +204,25 @@ const NodeLabel: React.FunctionComponent<NodeLabelProps> = ({
     filterId = NODE_SHADOW_FILTER_ID_HOVER;
   }
 
+  // if (isLabelPillShape) {
+  //   return (
+  //     <g className={className} ref={refs} transform={`translate(${startX}, ${startY})`}>
+  //       <NodeShadows />
+  //       <rect
+  //         ref={boxRef}
+  //         className={css(styles.topologyNodeLabelBackground)}
+  //         key={`rect-${filterId}-${width}`} // update key to force remount on filter or size update
+  //         filter={filterId && createSvgIdUrl(filterId)}
+  //         x={0}
+  //         y={0}
+  //         width={width}
+  //         height={backgroundHeight}
+  //         rx={cornerRadius}
+  //         ry={cornerRadius}
+  //       />{' '}
+  //     </g>
+  //   );
+  // } else {
   return (
     <g className={className} ref={refs} transform={`translate(${startX}, ${startY})`}>
       <NodeShadows />
@@ -315,5 +338,6 @@ const NodeLabel: React.FunctionComponent<NodeLabelProps> = ({
     </g>
   );
 };
+// };
 
 export default NodeLabel;
