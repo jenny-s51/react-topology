@@ -49,16 +49,16 @@ To add a control bar to the Topology view:
 
 1. Call the `createTopologyControlButtons` function, which will create  common control buttons via several parameters:
 
-  - To render the default control buttons, pass in `defaultControlButtonsOptions`, which includes:
+  To render the default control buttons, pass in `defaultControlButtonsOptions`, which includes:
      - Zoom In.
      - Zoom Out.
      - Fit to Screen.
      - Reset View.
      - Legend.
 
-    You can override these defaults by passing in any of the `defaultControlButtonsOptions` as a parameter, with your updated boolean value to replace the default option.
+  You can override these defaults by passing in any of the `defaultControlButtonsOptions` as a parameter, with your updated boolean value to replace the default option.
 
-  - For each control button, pass in each of the following action callback methods as a parameter:
+  For each control button, pass in each of the following action callback methods as a parameter:
 
     - **`zoomInCallback`:** Handle clicks on the Zoom In button. For example:
         ```noLive
@@ -66,42 +66,42 @@ To add a control bar to the Topology view:
             // Zoom in by desired amount
             controller.getGraph().scaleBy(4 / 3);
           })
-          ```
+        ```
     - **`zoomOutCallback`:** Handle clicks on the Zoom Out button. For example:
         ```noLive
           action(() => {
             // Zoom in out desired amount
             controller.getGraph().scaleBy(0.75);
           })
-          ```
-      - **`fitToScreenCallback`:** Handle clicks on the Fit to Screen button. For example:
-        ```noLive
-          action(() => {
-            // Note: The default BaseGraph's fit implementation will not scale to greater
-            // than 1 so it will not zoom in to enlarge the graph to take up the entire
-            // viewable area.
-
-            // Fit entire graph in the viewable area with an 80px margin
-            controller.getGraph().fit(80);
-          })
-          ```
-      - **`resetViewCallback`:** Handle clicks on the Reset View button. For example:
-        ```noLive
-          action(() => {
-            // BaseGraph's reset implementation will scale back to 1, and re-center
-            // the graph
-            controller.getGraph().reset();
-
-            // re-run the layout
-            controller.getGraph().layout();
-          })
-          ```
-      - **`legendCallback`:** Handle clicks on the Legend. For example:
-        ```noLive
-          action(() => {
-            // application specific code to show a legend (no default support)
-          })
         ```
+    - **`fitToScreenCallback`:** Handle clicks on the Fit to Screen button. For example:
+      ```noLive
+        action(() => {
+          // Note: The default BaseGraph's fit implementation will not scale to greater
+          // than 1 so it will not zoom in to enlarge the graph to take up the entire
+          // viewable area.
+
+          // Fit entire graph in the viewable area with an 80px margin
+          controller.getGraph().fit(80);
+        })
+      ```
+    - **`resetViewCallback`:** Handle clicks on the Reset View button. For example:
+      ```noLive
+        action(() => {
+          // BaseGraph's reset implementation will scale back to 1, and re-center
+          // the graph
+          controller.getGraph().reset();
+
+          // re-run the layout
+          controller.getGraph().layout();
+        })
+      ```
+    - **`legendCallback`:** Handle clicks on the Legend. For example:
+      ```noLive
+        action(() => {
+          // application specific code to show a legend (no default support)
+        })
+      ```
 
 ### Example
 
