@@ -25,6 +25,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 PatternFly's **Topology** is an open source utility built off of [@patternfly/react-core](https://www.npmjs.com/package/@patternfly/react-core) that you can use to create a visual representation of all the applications within your project, their build status, and the components and services associated with them. Creating these visuals can help document and communicate the intricacies of the processes behind your product.
@@ -36,21 +38,24 @@ To create a Topology view for your product, you can create a simple layout of no
 To use Topology, you will need to have both [Node Active LTS](https://github.com/nodejs/Release#release-schedule) and [Yarn](https://yarnpkg.com/) installed.
 
 1. Install and develop with the most up-to-date version of Node Active LTS. For example, to develop with Node 8, you would use the following commands:
+
     ```
     nvm install 8
     nvm use 8
     ```
-1. Install and use version 1.6.0 or later of Yarn.
+2. Install and use version 1.6.0 or later of Yarn.
 
 ## Installing Topology
 
 Once you have all of the prequisites, you can install the Topology package with Yarn or npm:
 
-1. Using Yarn
+1. Using Yarn:
+   
     ```
     yarn add @patternfly/react-topology
     ```
-1. Using npm
+2. Using npm:
+   
     ```
     npm install @patternfly/react-topology --save
     ```
@@ -65,9 +70,9 @@ To use Topology out of the box, follow these steps:
 
 1. Create nodes by calling the `fromModel` method on the controller you initialized. `fromModel` will take the `Model` that you created as a parameter. Your data model should include a `graph` object, on which you will need to set `id` , `type`, and `layout`.
 
-1. To create your Topology view component, wrap `TopologyView` around `<VisualizationSurface>`, which can accept a `state` parameter. 
-    - The value of state is application specific and should include any data the application wants to store/retrieve from the controller. 
-    - Adding state to  `<VisualizationSurface>` allows hooks to update when state changes. 
+1. To create your Topology view component, wrap `TopologyView` around `<VisualizationSurface>`, which can accept a `state` parameter.
+    - The value of state is application specific and should include any data the application wants to store/retrieve from the controller.
+    - Adding state to  `<VisualizationSurface>` allows hooks to update when state changes.
     - State cam also be used to keep track of your graph state, such as selected elements.
 
 1. Wrap your `TopologyView` with your controller. In the example below, this is done via the `VisualizationProvider` which consumes the `Controller` via context.
@@ -95,7 +100,7 @@ To help you better understand and visualize the different Topology components, w
 
 You can run the demo app [by following these instructions.](https://github.com/patternfly/react-topology?tab=readme-ov-file#demo-app)
 
-## Example
+### Example
 
 ```ts file='./TopologyGettingStartedDemo.tsx'
 ```

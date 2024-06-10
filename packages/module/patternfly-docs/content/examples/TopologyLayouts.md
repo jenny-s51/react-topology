@@ -43,6 +43,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 A **layout** helps position the nodes in a Topology view, according to different visualization structures.
@@ -62,7 +64,7 @@ There are many algorithms available for positioning nodes, based on factors like
   - This layout helps when you need to provide a natural "levels" approach that can be combined with other algorithms, in order to help users to identify the dependencies between elements.
   - Note: The current version doesn't manage the overflow of a row.
 
-## Example
+### Example
 
 ```ts file='./TopologyLayoutsDemo.tsx'
 ```

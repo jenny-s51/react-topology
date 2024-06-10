@@ -26,6 +26,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 **Selection** functionality enables users to select nodes and edges in a Topology view.
@@ -47,7 +49,7 @@ By default, the application must control the selection state. This can be done b
 
 Alternatively, you can pass `{ controlled: true }` to the `withSelection` utility or to the `useSelection` hook.
 
-## Example
+### Example
 
 ```ts file='./TopologySelectableDemo.tsx'
 ```

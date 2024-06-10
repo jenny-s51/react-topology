@@ -37,6 +37,8 @@ import Icon2 from '@patternfly/react-icons/dist/esm/icons/folder-open-icon';
 
 import './topology-example.css';
 
+# Introduction
+
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
 A **toolbar** places controls within a panel at the top of a Topology view.
@@ -55,7 +57,7 @@ and react to that state accordingly.
 
 You will need to pass in the corresponding properties and the related `viewOptions` state values to your custom `<DefaultNode>` component for all view options you want to track.
 
-## Example
+### Example
 
 ```ts file='./TopologyToolbarDemo.tsx'
 ```
