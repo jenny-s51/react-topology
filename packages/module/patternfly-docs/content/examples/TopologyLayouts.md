@@ -54,7 +54,7 @@ There are many algorithms available for positioning nodes, based on factors like
 - **Cola:** Built on top of the WebCola layout provided by [tgdwyer/WebCola](://github.com/tgdwyer/WebCola). 
   - This layout uses `force simulation` by default, but can be turned off by setting the options `layoutOnDrag` flag to "false".
 - **ColaGroups:** Uses the cola layout recursively on each group, so that the group's children locations are set before the group's location is set relative to other groups or nodes at its level.
-- **Grid:** Orders nodes in a gri, making the grid as `square` as possible.
+- **Grid:** Orders nodes in a grid, making the grid as `square` as possible.
   - This layout works well to distribute nodes without taking edges into consideration.
 - **Concentric:** Places nodes in a circular pattern.
   - This layout has better results focused on high connectivity.

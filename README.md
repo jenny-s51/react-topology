@@ -2,7 +2,7 @@
 
 This package provides the resources necessary to use PatternFly Topology, an open source utility built off of [@patternfly/react-core](https://www.npmjs.com/package/@patternfly/react-core) that you can use to create a visual representation of all the applications within your project, their build status, and the components and services associated with them.
 
-Topology components are based on [PatternFly 4][patternfly-4] Based from https://github.com/patternfly/patternfly-react version 4.91.40
+Topology is based on PatternFly 5 components from https://github.com/patternfly/patternfly-react.
 
 Documentation for Topology and its features is available on [the PatternFly website.](www.patternfly.org/topology/about-topology)
 
@@ -18,6 +18,7 @@ Documentation for Topology and its features is available on [the PatternFly webs
 To use Topology, you will need to have both [Node Active LTS](https://github.com/nodejs/Release#release-schedule) and [Yarn](https://yarnpkg.com/) installed.
 
 1. Install and develop with the most up-to-date version of Node Active LTS. For example, to develop with Node 8, you would use the following commands:
+
     ```
     nvm install 8
     nvm use 8
@@ -28,11 +29,13 @@ To use Topology, you will need to have both [Node Active LTS](https://github.com
 
 Once you have all of the prequisites, you can install the Topology package with Yarn or npm:
 
-1. Using Yarn
+1. Using Yarn:
+
     ```
     yarn add @patternfly/react-topology
     ```
-1. Using npm
+1. Using npm:
+
     ```
     npm install @patternfly/react-topology --save
     ```

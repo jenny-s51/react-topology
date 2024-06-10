@@ -32,7 +32,7 @@ import './topology-example.css';
 
 ## Using pan and zoom
 
-To allow users to pan and zoom in a Topology view, use the `withPanZoom` utility when you return the graph component in the `<ComponentFactory>`
+To allow users to pan and zoom in a Topology view, use the `withPanZoom` utility when you return the graph component in the `ComponentFactory`
   - For example: `withPanZoom(GraphComponent)`
 
 The component should accept a `panZoomRef` property, which should be the ref on the surface element for the group. This is the element that will accept the drag or mouse-wheel events.

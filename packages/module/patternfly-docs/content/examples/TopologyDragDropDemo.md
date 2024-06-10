@@ -41,7 +41,7 @@ import './topology-example.css';
 
 ## Drag and drop
 
-To add drag and drop functionality to your Topology view, add the following in your `<ComponentFactory>`:
+To add drag and drop functionality to your Topology view, add the following in your `ComponentFactory`:
 
 - Nodes can be dragged about the canvas by using the `useDragNode` hook, or by wrapping the `<Node>` component with `withDragNode`.
 

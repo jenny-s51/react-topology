@@ -32,7 +32,7 @@ import './topology-example.css';
 
 ## Using selection
 
-To allow nodes and edges to be selectable, use the `withSelection` utility when you return the node/edge component in the `<ComponentFactory>`. 
+To allow nodes and edges to be selectable, use the `withSelection` utility when you return the node/edge component in the `ComponentFactory`. 
   - For example: `withSelection()(MyCustomNode)`
 
 The component should accept 2 parameters, `onSelect` and `selected` (you can simply extend `WithSelectionProps`).

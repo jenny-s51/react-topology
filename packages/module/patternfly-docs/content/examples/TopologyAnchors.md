@@ -28,7 +28,7 @@ import './topology-example.css';
 
 **Note:** Topology lives in its own package at [`@patternfly/react-topology`](https://www.npmjs.com/package/@patternfly/react-topology).
 
-An **anchor** is the point within a node where edges connect.
+An **anchor** is the point at which an edge connects to a node.
 
 By default, nodes use a `CenterAnchor`, which refers to the center of the bounds of the node. You can use different anchors for different node shapes.
 
@@ -42,7 +42,7 @@ You can specify the SVG element that determines edge locations by using the prov
 - **`useAnchor`:** Allows you to specify your own custom anchor or provide a function that returns a specific anchor.
   - This is useful for adjusting the anchor based on the node being displayed.
 
-These hooks accept the following parameters, allowing you to customize when to use the anchor:
+These hooks accept the following parameters, allowing you to customize the anchor:
 
 - **`points` (for `usePolygonAnchor` only):** The points for the polygon.
 - **`AnchorEnd`:** Use for start, end, or both.

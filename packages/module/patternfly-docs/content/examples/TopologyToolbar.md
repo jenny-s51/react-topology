@@ -49,7 +49,7 @@ To add a toolbar to a Topology view, wrap your `VisualizationProvider` with the 
 
 **Note**: You can set the "state" on the controller to track values such as the `viewOptions`.
 
-`<GraphElement>` components can retrieve state from the controller via:
+`GraphElement` components can retrieve state from the controller via:
 `element.getController().getState<ControllerState>();`
 and react to that state accordingly.
 
