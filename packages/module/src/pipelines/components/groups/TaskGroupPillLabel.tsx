@@ -1,95 +1,108 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-// import { NodeLabelProps } from '../../../components';
-import { TaskNodeProps } from '../nodes/TaskNode';
+import styles from '../../../css/topology-components';
 import TaskPill, { TaskPillProps } from '../nodes/TaskPill';
-import { useSize } from '../../../utils/useSize';
 import { NodeLabelProps } from '../../../components';
 import { RunStatus } from '../../types';
-// import { useCombineRefs } from '../../../utils';
+import useCombineRefs from '../../../utils/useCombineRefs';
+import { useSize } from '../../../utils';
+import { LabelPosition, ScaleDetailsLevel } from '../../../types';
 
 export type TaskGroupPillLabelProps = {
   shadowCount?: number;
-  expandable?: boolean;
-  status?: RunStatus;
-} & Omit<TaskNodeProps, 'element'> &
-  Omit<NodeLabelProps, 'status'> &
-  NodeLabelProps &
-  TaskPillProps;
-
-// type PointWithSize = [number, number, number];
+  runStatus?: RunStatus;
+  labelOffset?: number;
+} & NodeLabelProps &
+  Omit<TaskPillProps, 'status' | 'pillRef'>;
 
 const TaskGroupPillLabel: React.FC<TaskGroupPillLabelProps> = ({
   element,
-  // children,
-  // className,
-  // paddingX = 0,
-  // paddingY = 0,
-  // cornerRadius = 4,
-  x = 0,
-  y = 0,
-  // position = LabelPosition.bottom,
-  // centerLabelOnEdge,
-  // secondaryLabel,
-  // status,
+  labelOffset = 17,
   badge,
   badgeColor,
   badgeTextColor,
   badgeBorderColor,
   badgeClassName,
-  // badgeLocation = BadgeLocation.inner,
-  // labelIconClass,
-  // labelIcon,
-  // labelIconPadding = 4,
+  runStatus,
   truncateLength,
-  width,
-  // dragRef,
-  // hover,
-  // dragging,
-  // edgeDragging,
-  // dropTarget,
+  boxRef,
+  position,
+  centerLabelOnEdge,
   onContextMenu,
   contextMenuOpen,
   actionIcon,
-  // actionIconClassName,
   onActionIconClick,
-  // everything that's in node label pass here?
   ...rest
 }) => {
-  const taskRef = React.useRef();
-  const pillRef = useSize();
-  // const labelLocation = React.useRef<PointWithSize>();
+  const [labelSize, labelRef] = useSize([]);
+  const pillRef = useCombineRefs(boxRef, labelRef);
+  const labelWidth = labelSize?.width || 0;
+  const labelHeight = labelSize?.height || 0;
 
-  // const refs = useCombineRefs<SVGPathElement>(hoverRef, dragNodeRef);
+  const bounds = element.getBounds();
+
+  const detailsLevel = element.getGraph().getDetailsLevel();
+  const scale = element.getGraph().getScale();
+  const medScale = element.getGraph().getDetailsLevelThresholds().medium;
+  const labelScale = detailsLevel !== ScaleDetailsLevel.high ? Math.min(1 / scale, 1 / medScale) : 1;
+  const labelPositionScale = detailsLevel !== ScaleDetailsLevel.high ? 1 / labelScale : 1;
+
+  const { startX, startY } = React.useMemo(() => {
+    let startX: number;
+    let startY: number;
+    const scaledWidth = labelWidth / labelPositionScale;
+    const scaledHeight = labelHeight / labelPositionScale;
+
+    if (position === LabelPosition.top) {
+      startX = bounds.x + bounds.width / 2 - scaledWidth / 2;
+      startY = bounds.y - (centerLabelOnEdge ? scaledHeight / 2 : labelOffset);
+    } else if (position === LabelPosition.right) {
+      startX = bounds.x + bounds.width + (centerLabelOnEdge ? -scaledWidth / 2 : labelOffset);
+      startY = bounds.y + bounds.height / 2;
+    } else if (position === LabelPosition.left) {
+      startX = bounds.x - (centerLabelOnEdge ? scaledWidth / 2 : scaledWidth + labelOffset);
+      startY = bounds.y + bounds.height / 2;
+    } else {
+      startX = bounds.x + bounds.width / 2 - scaledWidth / 2;
+      startY = bounds.y + bounds.height + (centerLabelOnEdge ? -scaledHeight / 2 : labelOffset);
+    }
+    return { startX, startY };
+  }, [
+    labelPositionScale,
+    position,
+    bounds.width,
+    bounds.x,
+    bounds.y,
+    bounds.height,
+    centerLabelOnEdge,
+    labelHeight,
+    labelOffset,
+    labelWidth
+  ]);
 
   return (
     <TaskPill
+      {...rest}
       element={element}
-      width={width}
-      taskRef={taskRef}
-      pillRef={pillRef as any}
+      width={labelWidth}
+      pillRef={pillRef}
       actionIcon={actionIcon}
       onActionIconClick={onActionIconClick}
-      // className={styles.topologyGroupLabel}
-      x={x}
-      y={y}
+      className={styles.topologyNodeLabel}
+      status={runStatus}
+      x={startX * labelPositionScale}
+      y={startY * labelPositionScale}
       paddingX={8}
       paddingY={5}
-      // secondaryLabel={secondaryLabel}
+      scaleNode={false}
       truncateLength={truncateLength}
       badge={badge}
       badgeColor={badgeColor}
       badgeTextColor={badgeTextColor}
       badgeBorderColor={badgeBorderColor}
       badgeClassName={badgeClassName}
-      // status={status as RunStatus}
-      // badgeLocation={badgeLocation}
-      // labelIconClass={labelIconClass}
-      // labelIcon={labelIcon}
-      // labelIconPadding={labelIconPadding}
       onContextMenu={onContextMenu}
       contextMenuOpen={contextMenuOpen}
-      {...rest}
     />
   );
 };

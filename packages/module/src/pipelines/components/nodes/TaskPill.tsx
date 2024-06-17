@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { action } from 'mobx';
 import { css } from '@patternfly/react-styles';
 import styles from '../../../css/topology-pipelines';
 import topologyStyles from '../../../css/topology-components';
 import { Popover, Tooltip } from '@patternfly/react-core';
 import { observer } from '../../../mobx-exports';
-import { Edge, Node, ScaleDetailsLevel } from '../../../types';
+import { Node, ScaleDetailsLevel } from '../../../types';
 import { RunStatus } from '../../types';
 import { truncateMiddle } from '../../../utils/truncate-middle';
 import { createSvgIdUrl, useCombineRefs, useHover, useSize } from '../../../utils';
@@ -26,11 +25,11 @@ const STATUS_ICON_SIZE = 16;
 
 export interface TaskPillProps extends Omit<TaskNodeProps, 'element'> {
   verticalLayout?: boolean;
-  width: number;
+  width?: number;
   x: number;
   y: number;
-  taskRef: React.Ref<SVGGElement>;
-  pillRef: React.Ref<SVGRectElement>;
+  taskRef?: React.Ref<SVGGElement>;
+  pillRef: (node: SVGGraphicsElement) => void;
   element: Node;
 }
 
@@ -40,6 +39,7 @@ const TaskPill: React.FC<TaskPillProps> = observer(
     taskRef,
     pillRef,
     className,
+    width = 0,
     paddingX = 8,
     paddingY = 8,
     status,
@@ -82,7 +82,6 @@ const TaskPill: React.FC<TaskPillProps> = observer(
     const [hovered] = useHover();
     const taskIconComponentRef = React.useRef();
     const isHover = hover !== undefined ? hover : hovered;
-    const { width, height: boundsHeight } = element.getBounds();
     const label = truncateMiddle(element.getLabel(), { length: truncateLength, omission: '...' });
     const [textSize, textRef] = useSize([label, className]);
     const nameLabelTriggerRef = React.useRef();
@@ -204,28 +203,6 @@ const TaskPill: React.FC<TaskPillProps> = observer(
       width
     ]);
 
-    React.useEffect(() => {
-      const sourceEdges = element.getSourceEdges();
-      action(() => {
-        const indent = detailsLevel === ScaleDetailsLevel.high && !verticalLayout ? width - pillWidth : 0;
-        sourceEdges.forEach((edge: Edge) => {
-          const data = edge.getData();
-          if ((data?.indent ?? 0) !== indent) {
-            edge.setData({ ...(data || {}), indent });
-          }
-        });
-      })();
-
-      return action(() => {
-        sourceEdges.forEach((edge: Edge) => {
-          const data = edge.getData();
-          if (data?.indent) {
-            edge.setData({ ...(data || {}), indent: 0 });
-          }
-        });
-      });
-    }, [detailsLevel, element, pillWidth, verticalLayout, width]);
-
     const scale = element.getGraph().getScale();
 
     const nameLabel = (
@@ -247,6 +224,16 @@ const TaskPill: React.FC<TaskPillProps> = observer(
       runStatusModifier,
       selected && styles.modifiers.selected,
       onSelect && styles.modifiers.selectable
+    );
+
+    // Force an update of the given pillRef when dependencies change
+    const pillUpdatedRef = React.useCallback(
+      (node: SVGGraphicsElement): void => {
+        pillRef(node);
+      },
+      // dependencies causing the pill rect to resize
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [pillClasses, width, height]
     );
 
     let filter: string;
@@ -305,6 +292,7 @@ const TaskPill: React.FC<TaskPillProps> = observer(
     if (showStatusState && !scaleNode && hideDetailsAtMedium && detailsLevel !== ScaleDetailsLevel.high) {
       const statusBackgroundRadius = statusIconSize / 2 + 4;
       const upScale = 1 / scale;
+      const { height: boundsHeight } = element.getBounds();
 
       const translateX = verticalLayout ? width / 2 - statusBackgroundRadius * upScale : 0;
       const translateY = verticalLayout ? 0 : (boundsHeight - statusBackgroundRadius * 2 * upScale) / 2;
@@ -368,7 +356,7 @@ const TaskPill: React.FC<TaskPillProps> = observer(
           x={offsetX}
           y={0}
           width={pillWidth}
-          ref={pillRef}
+          ref={pillUpdatedRef}
           height={height}
           rx={height / 2}
           className={css(styles.topologyPipelinesPillBackground)}

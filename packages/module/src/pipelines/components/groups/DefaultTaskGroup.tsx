@@ -67,8 +67,6 @@ export interface DefaultTaskGroupProps {
   GroupLabelComponent?: React.FC<TaskGroupPillLabelProps>;
   /** Center the label on the edge, overrides the label offset, only applicable to expanded groups */
   centerLabelOnEdge?: boolean;
-  /** Applies task node styling to the group label */
-  isLabelPillShape?: boolean;
   /** The Icon class to show in the label, ignored when labelIcon is specified */
   labelIconClass?: string;
   /** The label icon component to show in the label, takes precedence over labelIconClass */
@@ -131,7 +129,6 @@ type PipelinesDefaultGroupInnerProps = Omit<DefaultTaskGroupProps, 'element'> & 
 
 const DefaultTaskGroupInner: React.FunctionComponent<PipelinesDefaultGroupInnerProps> = observer(
   ({
-    className,
     element,
     badge,
     onCollapseChange,
@@ -212,7 +209,6 @@ const DefaultTaskGroupInner: React.FunctionComponent<PipelinesDefaultGroupInnerP
     if (element.isCollapsed()) {
       return (
         <DefaultTaskGroupCollapsed
-          className={className}
           element={element}
           shadowCount={collapsedShadowCount}
           onCollapseChange={handleCollapse}
@@ -221,16 +217,7 @@ const DefaultTaskGroupInner: React.FunctionComponent<PipelinesDefaultGroupInnerP
         />
       );
     }
-    return (
-      //  TODO: Support status indicators on expanded state.
-      <DefaultTaskGroupExpanded
-        isLabelPillShape
-        className={className}
-        element={element}
-        onCollapseChange={handleCollapse}
-        {...rest}
-      />
-    );
+    return <DefaultTaskGroupExpanded element={element} badge={badge} onCollapseChange={handleCollapse} {...rest} />;
   }
 );
 

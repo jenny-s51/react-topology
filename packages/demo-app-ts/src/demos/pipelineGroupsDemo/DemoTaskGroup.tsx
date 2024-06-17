@@ -12,11 +12,10 @@ import {
   EdgeCreationTypes,
   useHover,
   ScaleDetailsLevel,
-  RunStatus
-  // NodeLabel
+  RunStatus,
+  TaskGroupPillLabel
 } from '@patternfly/react-topology';
 import { DEFAULT_TASK_HEIGHT, GROUP_TASK_WIDTH } from './createDemoPipelineGroupsNodes';
-import TaskGroupPillLabel from '@patternfly/react-topology/dist/esm/pipelines/components/groups/TaskGroupPillLabel';
 
 type DemoTaskGroupProps = {
   element: GraphElement;
