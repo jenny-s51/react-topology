@@ -151,19 +151,19 @@ class App extends React.Component<{}, AppState> {
 
     const AppHeader = (
       <Masthead>
-        <MastheadToggle>
-          <PageToggleButton
-            variant="plain"
-            aria-label="Global navigation"
-            isSidebarOpen={isNavOpen}
-            onSidebarToggle={() => this.setState({ isNavOpen: !isNavOpen })}
-          >
-            <BarsIcon />
-          </PageToggleButton>
-        </MastheadToggle>
         <MastheadMain>
-          <MastheadBrand component="a">
-            <Brand src={imgBrand} alt="Patternfly Logo" heights={{ default: '36px' }} />
+          <MastheadToggle>
+            <PageToggleButton
+              variant="plain"
+              aria-label="Global navigation"
+              isSidebarOpen={isNavOpen}
+              onSidebarToggle={() => this.setState({ isNavOpen: !isNavOpen })}
+            >
+              <BarsIcon />
+            </PageToggleButton>
+          </MastheadToggle>
+          <MastheadBrand>
+            <Brand src={imgBrand} alt="Patternfly Logo" heights={{ default: '40px' }} />
           </MastheadBrand>
         </MastheadMain>
         <MastheadContent>{AppToolbar}</MastheadContent>

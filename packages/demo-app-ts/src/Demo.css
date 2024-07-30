@@ -7,7 +7,6 @@
 
 .pf-ri__topology-demo .pf-topology-visualization-surface {
   border: 1px solid var(--pf-t--global--border--color--100);
-  border-top: none;
 }
 
 .pf-ri__topology-demo .pf-v6-c-tab-content {
@@ -23,6 +22,7 @@
 .pf-ri__topology-demo .pf-v6-c-toolbar {
   --pf-v6-c-toolbar__expandable-content--lg--PaddingBottom: 0;
   --pf-v6-c-toolbar--PaddingBottom: 0;
+  --pf-v6-c-toolbar--PaddingBlockStart: var(--pf-t--global--spacer--300);
 }
 .pf-ri__topology-demo .pf-v6-c-toolbar__item .pf-v6-l-flex {
   --pf-v6-l-flex--FlexWrap: no-wrap;
@@ -77,4 +77,10 @@
 
 .pf-v6-c-toolbar__content.pf-m-hidden {
   display: none;
+}
+
+.pf-v6-c-page__main-container,
+.pf-v6-c-page__main-section,
+.pf-v6-c-page__main-body {
+  height: 100%;
 }
