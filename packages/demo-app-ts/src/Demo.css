@@ -78,9 +78,3 @@
 .pf-v6-c-toolbar__content.pf-m-hidden {
   display: none;
 }
-
-.pf-v6-c-page__main-container,
-.pf-v6-c-page__main-section,
-.pf-v6-c-page__main-body {
-  height: 100%;
-}
