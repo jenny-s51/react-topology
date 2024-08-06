@@ -4,11 +4,8 @@ import {
   Dropdown,
   DropdownItem,
   DropdownList,
-  Flex,
   MenuToggle,
   MenuToggleElement,
-  Split,
-  SplitItem,
   TextInput,
   ToolbarItem,
   Tooltip
@@ -29,11 +26,9 @@ const OptionsContextBar: React.FC<{ controller: Controller }> = observer(({ cont
   };
 
   const layoutDropdown = (
-    <Split>
-      <SplitItem>
-        <label className="pf-v6-u-display-inline-block pf-v6-u-mr-md pf-v6-u-mt-sm">Layout:</label>
-      </SplitItem>
-      <SplitItem>
+    <>
+      <ToolbarItem variant="label">Layout:</ToolbarItem>
+      <ToolbarItem>
         <Dropdown
           toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
             <MenuToggle ref={toggleRef} onClick={() => setLayoutDropdownOpen(!layoutDropdownOpen)}>
@@ -70,8 +65,8 @@ const OptionsContextBar: React.FC<{ controller: Controller }> = observer(({ cont
             </DropdownItem>
           </DropdownList>
         </Dropdown>
-      </SplitItem>
-    </Split>
+      </ToolbarItem>
+    </>
   );
 
   const saveModel = () => {
@@ -135,66 +130,60 @@ const OptionsContextBar: React.FC<{ controller: Controller }> = observer(({ cont
   };
 
   return (
-    <Flex flexWrap={{ default: 'wrap' }} gap={{ default: 'gapMd' }}>
-      <Flex>
-        <ToolbarItem>{layoutDropdown}</ToolbarItem>
-        <ToolbarItem>
-          <Tooltip content="Layout info saved" trigger="manual" isVisible={modelSaved}>
-            <Button variant="secondary" onClick={saveModel}>
-              Save Layout Info
-            </Button>
-          </Tooltip>
-        </ToolbarItem>
-        <ToolbarItem>
-          <Button variant="secondary" onClick={restoreLayout}>
-            Restore Layout Info
-          </Button>
-        </ToolbarItem>
-        <ToolbarItem>
-          <Button variant="secondary" onClick={addNode}>
-            Add Node
-          </Button>
-        </ToolbarItem>
-      </Flex>
+    <>
+      <ToolbarItem>{layoutDropdown}</ToolbarItem>
       <ToolbarItem>
-        <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapMd' }}>
-          <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-            <span id="med-scale">Medium Scale:</span>
-            <TextInput
-              aria-labelledby="med-scale"
-              max={1.0}
-              min={options.lowScale}
-              step={0.01}
-              value={options.medScale}
-              type="number"
-              onChange={(_event, val) => {
-                const newValue = parseFloat(val);
-                if (!Number.isNaN(newValue) && newValue > options.lowScale && newValue >= 0.01 && newValue <= 1.0) {
-                  options.setMedScale(parseFloat(val));
-                }
-              }}
-            />
-          </Flex>
-          <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-            <span id="low-scale">Low Scale:</span>
-            <TextInput
-              aria-labelledby="low-scale"
-              max={options.medScale}
-              min={0.01}
-              step={0.01}
-              value={options.lowScale}
-              type="number"
-              onChange={(_event, val) => {
-                const newValue = parseFloat(val);
-                if (!Number.isNaN(newValue) && newValue < options.medScale && newValue >= 0.01 && newValue <= 1.0) {
-                  options.setLowScale(parseFloat(val));
-                }
-              }}
-            />
-          </Flex>
-        </Flex>
+        <Tooltip content="Layout info saved" trigger="manual" isVisible={modelSaved}>
+          <Button variant="secondary" onClick={saveModel}>
+            Save Layout Info
+          </Button>
+        </Tooltip>
       </ToolbarItem>
-    </Flex>
+      <ToolbarItem>
+        <Button variant="secondary" onClick={restoreLayout}>
+          Restore Layout Info
+        </Button>
+      </ToolbarItem>
+      <ToolbarItem>
+        <Button variant="secondary" onClick={addNode}>
+          Add Node
+        </Button>
+      </ToolbarItem>
+      <ToolbarItem variant="label"> Medium Scale:</ToolbarItem>
+      <ToolbarItem>
+        <TextInput
+          aria-labelledby="med-scale"
+          max={1.0}
+          min={options.lowScale}
+          step={0.01}
+          value={options.medScale}
+          type="number"
+          onChange={(_event, val) => {
+            const newValue = parseFloat(val);
+            if (!Number.isNaN(newValue) && newValue > options.lowScale && newValue >= 0.01 && newValue <= 1.0) {
+              options.setMedScale(parseFloat(val));
+            }
+          }}
+        />
+        <ToolbarItem variant="label">Low Scale:</ToolbarItem>
+        <ToolbarItem>
+          <TextInput
+            aria-labelledby="low-scale"
+            max={options.medScale}
+            min={0.01}
+            step={0.01}
+            value={options.lowScale}
+            type="number"
+            onChange={(_event, val) => {
+              const newValue = parseFloat(val);
+              if (!Number.isNaN(newValue) && newValue < options.medScale && newValue >= 0.01 && newValue <= 1.0) {
+                options.setLowScale(parseFloat(val));
+              }
+            }}
+          />
+        </ToolbarItem>
+      </ToolbarItem>
+    </>
   );
 });
 

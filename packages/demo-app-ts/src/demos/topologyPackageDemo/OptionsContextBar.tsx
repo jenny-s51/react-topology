@@ -227,12 +227,8 @@ const OptionsContextBar: React.FC = observer(() => {
   };
 
   return (
-    <Flex>
+      <ToolbarItem variant="label">Nodes:</ToolbarItem>
       <ToolbarItem>
-        <Flex flexWrap={{ default: 'wrap' }} gap={{ default: 'gapMd' }}>
-          <FlexItem>
-            <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-              <span>Nodes:</span>
               <TextInput
                 aria-label="nodes"
                 type="number"
@@ -241,11 +237,9 @@ const OptionsContextBar: React.FC = observer(() => {
                   val ? updateValue(parseInt(val), 0, 9999, setNumNodes) : setNumNodes(null)
                 }
               />
-            </Flex>
-          </FlexItem>
-          <FlexItem>
-            <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-              <span>Edges:</span>
+            </ToolbarItem>>
+          <ToolbarItem variant="label">Edges:</ToolbarItem>
+          <ToolbarItem>
               <TextInput
                 aria-label="edges"
                 type="number"
@@ -254,11 +248,8 @@ const OptionsContextBar: React.FC = observer(() => {
                   val ? updateValue(parseInt(val), 0, 200, setNumEdges) : setNumEdges(null)
                 }
               />
-            </Flex>
-          </FlexItem>
-          <FlexItem>
-            <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-              <span>Groups:</span>
+            </ToolbarItem>
+          <ToolbarItem variant="label">Groups:</ToolbarItem>
               <TextInput
                 aria-label="groups"
                 type="number"
@@ -267,11 +258,8 @@ const OptionsContextBar: React.FC = observer(() => {
                   val ? updateValue(parseInt(val), 0, 100, setNumGroups) : setNumGroups(null)
                 }
               />
-            </Flex>
-          </FlexItem>
-          <FlexItem>
-            <Flex flexWrap={{ default: 'nowrap' }} gap={{ default: 'gapXs' }}>
-              <span>Nesting Depth:</span>
+              </ToolbarItem>
+          <ToolbarItem variant="label">Nesting Depth:</ToolbarItem>
               <TextInput
                 aria-label="nesting depth"
                 type="number"
@@ -299,7 +287,6 @@ const OptionsContextBar: React.FC = observer(() => {
           {renderEdgeOptionsDropdown()}
         </Flex>
       </ToolbarItem>
-    </Flex>
   );
 });
 

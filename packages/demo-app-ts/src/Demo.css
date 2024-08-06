@@ -6,7 +6,7 @@
 }
 
 .pf-ri__topology-demo .pf-topology-visualization-surface {
-  border: 1px solid var(--pf-t--global--border--color--100);
+  border: 1px solid var(--pf-t--color--black);
 }
 
 .pf-ri__topology-demo .pf-v6-c-tab-content {
@@ -42,13 +42,13 @@
 }
 
 .pf-ri-topology__node__background {
-  fill: var(--pf-t--color--gray--40);
-  stroke-width: 1px;
-  stroke: var(--pf-t--color--black);
+  fill: var(--pf-t--global--background--color--floating--default);
+  stroke-width: var(--pf-t--global--border--width--regular);
+  stroke: var(--pf-t--global--border--color--default);
 }
 
 .pf-ri-topology__node__background.pf-m-selected  {
-  fill: var(--pf-t--color--blue--50);
+  fill: var(--pf-t--global--color--brand--default);
 }
 
 .pf-ri-topology__node__background.pf-m-hover  {
