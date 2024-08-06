@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   Button,
-  Flex,
-  FlexItem,
   MenuToggle,
   MenuToggleElement,
   Select,
@@ -227,66 +225,65 @@ const OptionsContextBar: React.FC = observer(() => {
   };
 
   return (
-      <ToolbarItem variant="label">Nodes:</ToolbarItem>
+    <>
+      <ToolbarItem variant="label">Nodes</ToolbarItem>
       <ToolbarItem>
-              <TextInput
-                aria-label="nodes"
-                type="number"
-                value={numNodes || ''}
-                onChange={(_event, val: string) =>
-                  val ? updateValue(parseInt(val), 0, 9999, setNumNodes) : setNumNodes(null)
-                }
-              />
-            </ToolbarItem>>
-          <ToolbarItem variant="label">Edges:</ToolbarItem>
-          <ToolbarItem>
-              <TextInput
-                aria-label="edges"
-                type="number"
-                value={numEdges === null ? '' : numEdges}
-                onChange={(_event, val: string) =>
-                  val ? updateValue(parseInt(val), 0, 200, setNumEdges) : setNumEdges(null)
-                }
-              />
-            </ToolbarItem>
-          <ToolbarItem variant="label">Groups:</ToolbarItem>
-              <TextInput
-                aria-label="groups"
-                type="number"
-                value={numGroups === null ? '' : numGroups}
-                onChange={(_event, val: string) =>
-                  val ? updateValue(parseInt(val), 0, 100, setNumGroups) : setNumGroups(null)
-                }
-              />
-              </ToolbarItem>
-          <ToolbarItem variant="label">Nesting Depth:</ToolbarItem>
-              <TextInput
-                aria-label="nesting depth"
-                type="number"
-                value={nestedLevel === null ? '' : nestedLevel}
-                onChange={(_event, val: string) =>
-                  val ? updateValue(parseInt(val), 0, 5, setNestedLevel) : setNestedLevel(null)
-                }
-              />
-            </Flex>
-          </FlexItem>
-          <FlexItem>
-            <Button
-              variant="link"
-              isDisabled={numNodes === undefined || numNodes < 1 || numEdges === undefined || numGroups === undefined}
-              onClick={() => options.setCreationCounts({ numNodes, numEdges, numGroups, nestedLevel })}
-            >
-              Apply
-            </Button>
-          </FlexItem>
-        </Flex>
+        <TextInput
+          aria-label="nodes"
+          type="number"
+          value={numNodes || ''}
+          onChange={(_event, val: string) =>
+            val ? updateValue(parseInt(val), 0, 9999, setNumNodes) : setNumNodes(null)
+          }
+        />
+      </ToolbarItem>
+      <ToolbarItem variant="label">Edges</ToolbarItem>
+      <ToolbarItem>
+        <TextInput
+          aria-label="edges"
+          type="number"
+          value={numEdges === null ? '' : numEdges}
+          onChange={(_event, val: string) =>
+            val ? updateValue(parseInt(val), 0, 200, setNumEdges) : setNumEdges(null)
+          }
+        />
+      </ToolbarItem>
+      <ToolbarItem variant="label">Groups:</ToolbarItem>
+      <ToolbarItem>
+        <TextInput
+          aria-label="groups"
+          type="number"
+          value={numGroups === null ? '' : numGroups}
+          onChange={(_event, val: string) =>
+            val ? updateValue(parseInt(val), 0, 100, setNumGroups) : setNumGroups(null)
+          }
+        />
+      </ToolbarItem>
+      <ToolbarItem variant="label">Nesting Depth:</ToolbarItem>
+      <ToolbarItem>
+        <TextInput
+          aria-label="nesting depth"
+          type="number"
+          value={nestedLevel === null ? '' : nestedLevel}
+          onChange={(_event, val: string) =>
+            val ? updateValue(parseInt(val), 0, 5, setNestedLevel) : setNestedLevel(null)
+          }
+        />
+        <ToolbarItem>
+          <Button
+            variant="link"
+            isDisabled={numNodes === undefined || numNodes < 1 || numEdges === undefined || numGroups === undefined}
+            onClick={() => options.setCreationCounts({ numNodes, numEdges, numGroups, nestedLevel })}
+          >
+            Apply
+          </Button>
+        </ToolbarItem>
       </ToolbarItem>
       <ToolbarItem>
-        <Flex gap={{ default: 'gapMd' }}>
-          {renderNodeOptionsDropdown()}
-          {renderEdgeOptionsDropdown()}
-        </Flex>
+        {renderNodeOptionsDropdown()}
+        {renderEdgeOptionsDropdown()}
       </ToolbarItem>
+    </>
   );
 });
 
