@@ -69,6 +69,7 @@ const TaskPill: React.FC<TaskPillProps> = observer(
     onSelect,
     onContextMenu,
     contextMenuOpen,
+    hideContextMenuKebab,
     actionIcon,
     actionIconClassName,
     onActionIconClick,
@@ -416,7 +417,7 @@ const TaskPill: React.FC<TaskPillProps> = observer(
             />
           </>
         )}
-        {textSize && onContextMenu && (
+        {textSize && onContextMenu && !hideContextMenuKebab && (
           <>
             <line
               className={css(topologyStyles.topologyNodeSeparator)}

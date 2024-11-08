@@ -92,6 +92,8 @@ export interface TaskNodeProps {
   selected?: boolean;
   /** Function to call when the element should become selected (or deselected). Part of WithSelectionProps */
   onSelect?: OnSelect;
+  /** Hide context menu kebab for the node  */
+  hideContextMenuKebab?: boolean;
   /** Function to call to show a context menu for the node  */
   onContextMenu?: (e: React.MouseEvent) => void;
   /** Flag indicating that the context menu for the node is currently open  */

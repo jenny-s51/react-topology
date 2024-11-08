@@ -10,6 +10,7 @@ type Reference = React.ComponentProps<typeof ContextMenu>['reference'];
 export interface WithContextMenuProps {
   onContextMenu?: (e: React.MouseEvent) => void;
   contextMenuOpen?: boolean;
+  hideContextMenuKebab?: boolean;
 }
 
 export const withContextMenu =

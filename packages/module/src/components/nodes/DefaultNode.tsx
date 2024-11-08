@@ -114,6 +114,8 @@ interface DefaultNodeProps {
   onShowCreateConnector?: () => void;
   /** Function to call to hide the connector creation indicator. Part of WithCreateConnectorProps  */
   onHideCreateConnector?: () => void;
+  /** Hide context menu kebab for the node  */
+  hideContextMenuKebab?: boolean;
   /** Function to call to show a context menu for the node  */
   onContextMenu?: (e: React.MouseEvent) => void;
   /** Flag indicating that the context menu for the node is currently open  */
@@ -165,6 +167,7 @@ const DefaultNodeInner: React.FunctionComponent<DefaultNodeInnerProps> = observe
     dndDropRef,
     onHideCreateConnector,
     onShowCreateConnector,
+    hideContextMenuKebab,
     onContextMenu,
     contextMenuOpen
   }) => {
@@ -379,6 +382,7 @@ const DefaultNodeInner: React.FunctionComponent<DefaultNodeInnerProps> = observe
                     badgeClassName={badgeClassName}
                     badgeLocation={badgeLocation}
                     onContextMenu={onContextMenu}
+                    hideContextMenuKebab={hideContextMenuKebab}
                     contextMenuOpen={contextMenuOpen}
                     hover={isHover}
                     labelIconClass={labelIconClass}

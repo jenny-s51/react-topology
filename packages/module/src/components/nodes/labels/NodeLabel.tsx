@@ -75,6 +75,7 @@ const NodeLabel: React.FunctionComponent<NodeLabelProps> = ({
   dragging,
   edgeDragging,
   dropTarget,
+  hideContextMenuKebab,
   onContextMenu,
   contextMenuOpen,
   actionIcon,
@@ -291,7 +292,7 @@ const NodeLabel: React.FunctionComponent<NodeLabelProps> = ({
           />
         </>
       )}
-      {textSize && onContextMenu && (
+      {textSize && onContextMenu && !hideContextMenuKebab && (
         <>
           <line
             className={css(styles.topologyNodeSeparator)}
