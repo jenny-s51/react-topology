@@ -118,6 +118,8 @@ interface DefaultNodeProps {
   onContextMenu?: (e: React.MouseEvent) => void;
   /** Flag indicating that the context menu for the node is currently open  */
   contextMenuOpen?: boolean;
+  /** Hide context menu kebab for the node  */
+  hideContextMenuKebab?: boolean;
 }
 
 const SCALE_UP_TIME = 200;
@@ -166,7 +168,8 @@ const DefaultNodeInner: React.FunctionComponent<DefaultNodeInnerProps> = observe
     onHideCreateConnector,
     onShowCreateConnector,
     onContextMenu,
-    contextMenuOpen
+    contextMenuOpen,
+    hideContextMenuKebab
   }) => {
     const [hovered, hoverRef] = useHover();
     const status = nodeStatus || element.getNodeStatus();
@@ -379,6 +382,7 @@ const DefaultNodeInner: React.FunctionComponent<DefaultNodeInnerProps> = observe
                     badgeLocation={badgeLocation}
                     onContextMenu={onContextMenu}
                     contextMenuOpen={contextMenuOpen}
+                    hideContextMenuKebab={hideContextMenuKebab}
                     hover={isHover}
                     labelIconClass={labelIconClass}
                     labelIcon={labelIcon}
