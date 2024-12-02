@@ -1,57 +1,67 @@
-import * as React from 'react';
-import { DEFAULT_LAYER } from '../../const';
+import React, { useState, useEffect } from 'react';
+import { DEFAULT_LAYER, TOP_LAYER } from '../../const';
 import LayersContext from './LayersContext';
+import { useHover } from '../../utils';
 
 interface LayersProviderProps {
   layers?: string[];
   children?: React.ReactNode;
 }
 
-interface State {
-  [id: string]: Element;
-}
+const LayersProvider: React.FunctionComponent<LayersProviderProps> = ({ layers, children }) => {
+  const [layerState, setLayerState] = useState<{ [id: string]: SVGGElement | null }>({});
+  const [hover, hoverRef] = useHover();
 
-export default class LayersProvider extends React.Component<LayersProviderProps, State> {
-  constructor(props: LayersProviderProps) {
-    super(props);
-    this.state = {};
-  }
-
-  private contextValue = (id: string): Element => {
-    if (this.state[id]) {
-      return this.state[id];
+  const contextValue = (id: string): SVGGElement => {
+    const layerNode = layerState[id];
+    if (layerNode) {
+      return layerNode;
     }
-    throw new Error(`Unknown layer '${id}'`);
+    throw new Error(`Unknown layer '${id}'`); // Debugging error
   };
 
-  private setDomLayers = (node: SVGGElement | null, id: string) => {
-    if (node && this.state[id] !== node) {
-      this.setState((state) => ({ ...state, [id]: node }));
+  const setDomLayers = (node: SVGGElement | null, id: string) => {
+    if (node && layerState[id] !== node) {
+      setLayerState((prev) => ({ ...prev, [id]: node }));
     }
   };
 
-  getLayerNode = (id: string): Element => {
-    const node = this.state[id];
-    if (node) {
-      return node;
-    }
-    throw new Error(`Unknown layer '${id}'`);
-  };
-
-  render() {
-    const { layers, children } = this.props;
+  useEffect(() => {
     if (layers && !layers.includes(DEFAULT_LAYER)) {
       throw new Error('Missing default layer.');
     }
-    const layerIds = layers || [DEFAULT_LAYER];
-    return (
-      <LayersContext.Provider value={this.contextValue}>
-        {layerIds.map((id) => (
-          <g key={id} data-layer-id={id} ref={(r) => this.setDomLayers(r, id)}>
-            {id === DEFAULT_LAYER && this.state[id] ? children : undefined}
+  }, [layers]);
+
+  const layerIds = layers || [DEFAULT_LAYER];
+
+  // eslint-disable-next-line no-console
+  console.log('Layer IDs', layerIds);
+
+  return (
+    <LayersContext.Provider value={contextValue}>
+      {layerIds.map((id) => {
+        return (
+          <g
+            key={id}
+            data-layer-id={id}
+            ref={(r) => {
+              setDomLayers(r, id);
+              hoverRef(r);
+            }}
+          >
+            {(() => {
+              if (id === TOP_LAYER && layerState[id] && hover) {
+                return <g className="top-layer-wrapper">{children}</g>;
+              } else if (id === DEFAULT_LAYER && layerState[id]) {
+                return children;
+              }
+              return null;
+            })()}
           </g>
-        ))}
-      </LayersContext.Provider>
-    );
-  }
-}
+        );
+      })}
+    </LayersContext.Provider>
+  );
+};
+
+export default LayersProvider;
